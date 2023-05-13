@@ -195,6 +195,7 @@ const Form = (props) => {
   const labelStyle = {
     ...mainLabel, color: theme.palette.mode === 'dark' ? '#fff' : getCssPropertyValue('--primary-300') 
   }
+
   return (
     <>
       <form className="form" onSubmit={props.addOpp}>

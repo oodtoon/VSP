@@ -64,12 +64,11 @@ oppsRouter.post("/:id/tasks", async (request, response) => {
   const { task, date } = request.body;
   const oppId = request.params.id;
   const opp = await Opportunity.findById(request.params.id);
-  // console.log(opp);
 
   const oppTask = new Task({
     task: task,
     date: date,
-    complete: false,
+    completed: false,
     opp: oppId,
   });
 
@@ -84,5 +83,14 @@ oppsRouter.get("/:id/tasks", async (request, response) => {
 
   response.status(201).json(opp);
 });
+
+oppsRouter.put('/:id/tasks', async (request, response) => {
+  const taskId = request.body.id
+  const body = request.body
+  console.log(taskId)
+  console.log(body)
+  const newTask = await Task.findByIdAndUpdate(taskId, request.body)
+  response.status(200).json(newTask)
+})
 
 module.exports = oppsRouter;

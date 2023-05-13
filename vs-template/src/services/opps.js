@@ -29,8 +29,8 @@ const create = async (newObject) => {
   return response.data;
 };
 
-const update = async (newObject) => {
-  const response = await axios.put(`${baseUrl}/${newObject.id}`, newObject);
+const updateStatus = async (newObject) => {
+  const response = await axios.put(`${baseUrl}/${newObject.opp}/tasks`, newObject);
   return response.data;
 };
 
@@ -45,6 +45,6 @@ const createTask = async (newObject) => {
 export default {
   getAll,
   create,
-  update,
+  updateStatus,
   createTask,
 };
