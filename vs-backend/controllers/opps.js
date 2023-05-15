@@ -28,6 +28,17 @@ oppsRouter.delete("/:id", (request, response, next) => {
     .catch((error) => next(error));
 });
 
+oppsRouter.patch("/:id", async (request, response) => {
+  const oppId = request.params.id
+  const body = request.body
+  const updatedOpp = await Opportunity.findById(oppId)
+  for (let key of Object.keys(body)) {
+    updatedOpp[key] = body[key]
+  }
+  await updatedOpp.save()
+  response.status(200).json(updatedOpp)
+})
+
 oppsRouter.post("/", (request, response) => {
   const body = request.body;
   console.log(body);
@@ -87,8 +98,6 @@ oppsRouter.get("/:id/tasks", async (request, response) => {
 oppsRouter.put('/:id/tasks', async (request, response) => {
   const taskId = request.body.id
   const body = request.body
-  console.log(taskId)
-  console.log(body)
   const newTask = await Task.findByIdAndUpdate(taskId, request.body)
   response.status(200).json(newTask)
 })

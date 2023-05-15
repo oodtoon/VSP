@@ -1,22 +1,40 @@
 import { useEffect, useRef, useState } from "react";
 import "../App.css";
 import { TextField, useTheme } from "@mui/material";
+import oppService from "../services/opps";
 
 const EntryBtn = {
     color: '#000'
 }
 
-const InLineEdit = ({ opp, setOpp }) => {
+const InLineEdit = ({ opp, edit, opportunity }) => {
   const [oppEdit, setOppEdit] = useState(opp);
   const [isInputHidden, setIsInputHidden] = useState(true);
   const inputRef = useRef(null);
   const onChange = (event) => setOppEdit(event.target.value);
 
   const onKeyDown = (event) => {
-    if (event.key === "Enter" || event.key === "Escape") {
-      event.target.blur();
+
+    if (event.key === "Enter" && !event.shiftKey && isInputHidden === false) {
+      setIsInputHidden(true)
     }
   };
+
+  const blurHandler = (event) => {
+    const oppObject = {
+     [edit]: oppEdit
+    }
+    if (oppEdit !== opp) {
+      oppService.update(oppObject, opportunity.id).then((returnedOpp) => {
+        setIsInputHidden(true)
+        setOppEdit(returnedOpp[edit]);
+      
+      });
+    } else {
+      setIsInputHidden(true)
+    }
+
+  }
 
   useEffect(() => {
     if (!isInputHidden) {
@@ -31,12 +49,13 @@ const InLineEdit = ({ opp, setOpp }) => {
         value={oppEdit}
         onChange={onChange}
         onKeyDown={onKeyDown}
-        onBlur={() => setIsInputHidden(true)}
+        onBlur={blurHandler}
         onClick={() => setIsInputHidden(false)}
         inputProps={{ ref: (input) => (inputRef.current = input) }}
         size="small"
         className={`inline-edit ${isInputHidden ? "hidden" : ""}`}
         multiline
+        sx={{ width: '80%' }}
       />
 
       <span
@@ -54,37 +73,38 @@ const InLineEdit = ({ opp, setOpp }) => {
   );
 };
 
-const EntryInfo = ({ opp, setOpp }) => {
+const EntryInfo = ({ opp }) => {
+
   return (
     <fieldset className="entry-details">
-      <label>
-        Company: <InLineEdit opp={opp.company} setOpp={setOpp} />
+      <label className="display-label">
+        Company: <InLineEdit opp={opp.company} edit={"company"} opportunity={opp}/>
       </label>
       <label>
-        Contact: <InLineEdit opp={opp.contact} setOpp={setOpp} />
+        Contact: <InLineEdit opp={opp.contact} edit={"contact"} opportunity={opp}/>
       </label>
       <label>
         Business Issue:
-        <InLineEdit opp={opp.businessIssue} setOpp={setOpp} />
+        <InLineEdit opp={opp.businessIssue} edit={"businessIssue"} opportunity={opp}/>
       </label>
       <label>
-        Anxiety Question: <InLineEdit opp={opp.anxietyQ} setOpp={setOpp} />
+        Anxiety Question: <InLineEdit opp={opp.anxietyQ} edit={"anxietyQ"} opportunity={opp}/>
       </label>
       <br />
       <label>
-        Problem: <InLineEdit opp={opp.problem} setOpp={setOpp} />
+        Problem: <InLineEdit opp={opp.problem}  edit={"problem"} opportunity={opp}/>
       </label>
       <label>
-        Solution: <InLineEdit opp={opp.solution} setOpp={setOpp} />
+        Solution: <InLineEdit opp={opp.solution} edit={"solution"} opportunity={opp}/>
       </label>
       <label>
-        Value: <InLineEdit opp={opp.value} setOpp={setOpp} />
+        Value: <InLineEdit opp={opp.value} edit={"value"} opportunity={opp}/>
       </label>
       <label>
-        Power: <InLineEdit opp={opp.power} setOpp={setOpp} />
+        Power: <InLineEdit opp={opp.power} edit={"power"} opportunity={opp}/>
       </label>
       <label>
-        Plan: <InLineEdit opp={opp.plan} setOpp={setOpp} />
+        Plan: <InLineEdit opp={opp.plan} edit={"plan"} opportunity={opp}/>
       </label>
     </fieldset>
   );

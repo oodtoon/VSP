@@ -1,5 +1,6 @@
 import axios from "axios";
 import dayjs from "dayjs";
+import { serializeDayJsDate } from "../utils/serialize";
 const baseUrl = "http://localhost:3001/api/opps";
 
 const deserialize = (task) => ({ ...task, date: dayjs(task.date) });
@@ -7,7 +8,7 @@ const deserialize = (task) => ({ ...task, date: dayjs(task.date) });
 const serialize = (task) => {
   return {
     ...task,
-    date: `${task.date.$M + 1}-${task.date.$D}-${task.date.$y}`,
+    date: serializeDayJsDate(task.date),
   };
 };
 
@@ -29,6 +30,11 @@ const create = async (newObject) => {
   return response.data;
 };
 
+const update = async (newObject, id) => {
+  const response = await axios.patch(`${baseUrl}/${id}`, newObject)
+  return response.data
+}
+
 const updateStatus = async (newObject) => {
   const response = await axios.put(`${baseUrl}/${newObject.opp}/tasks`, newObject);
   return response.data;
@@ -45,6 +51,7 @@ const createTask = async (newObject) => {
 export default {
   getAll,
   create,
+  update,
   updateStatus,
   createTask,
 };

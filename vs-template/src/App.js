@@ -4,6 +4,7 @@ import Form from "./components/Form";
 import Opportunities from "./components/routes/OpportunityRoute";
 import TimeLine from "./components/routes/Timeline";
 import Nav from "./components/Nav";
+import ShareTimeline from "./components/routes/ShareTimeline"
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -25,7 +26,6 @@ function App() {
   };
 
   useEffect(() => {
-    console.log({darkMode}, {isDarkMode})
     if (darkMode === true) {
       setIsDarkMode(true);
     } else {
@@ -90,7 +90,6 @@ function App() {
 
   useEffect(() => {
     oppService.getAll().then((initialOpps) => {
-      console.log("initial", initialOpps);
       setOpps(initialOpps);
     });
   }, []);
@@ -159,6 +158,7 @@ function App() {
     setPower("");
   };
 
+
   return (
     <div>
       <ThemeProvider theme={theme}>
@@ -191,13 +191,14 @@ function App() {
                     handlePower={handlePower}
                     power={power}
                     opps={opps}
+                    setOpps={setOpps}
                     isDarkMode={isDarkMode}
                   />
                 }
               />
               <Route
                 path="/opportunities"
-                element={<Opportunities opps={opps} />}
+                element={<Opportunities opps={opps} setOpps={setOpps}/>}
               />
               <Route
                 path="/tasks"

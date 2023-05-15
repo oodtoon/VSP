@@ -4,7 +4,6 @@ import "../App.css";
 import { getCssPropertyValue } from "../utils/style";
 
 const inputStyle = {
-  m: 0.5,
   backgroundColor: "white",
   borderRadius: "4px",
 };
@@ -147,6 +146,7 @@ const BasicInfo = (props) => {
           onChange={props.handleCompany}
           value={props.company}
           sx={inputStyle}
+          required
         />
       </label>
       <label className="basic-label" style={props.labelStyle}>

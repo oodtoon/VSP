@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import oppService from '../../services/opps'
+import { useNavigate } from "react-router-dom";
+import oppService from "../../services/opps";
 import {
   Button,
   TextField,
-  useTheme,
   Table,
   TableBody,
   TableCell,
@@ -19,9 +19,17 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import DoneIcon from "@mui/icons-material/Done";
-import Grow from "@mui/material/Grow";
 
 import "./Timelines.css";
+import { serializeDayJsDate } from "../../utils/serialize";
+
+const serializeTimeline = (tasksArray) => {
+  return tasksArray
+    .map((task) => {
+      return `${task.task} - ${serializeDayJsDate(task.date)}`;
+    })
+    .join("\n");
+};
 
 const ObjectiveCreator = (props) => {
   const inputStyle = {
@@ -48,6 +56,7 @@ const ObjectiveCreator = (props) => {
           type="text"
           value={props.task}
           onChange={props.handleTask}
+          required
         />
 
         <DatePicker
@@ -72,7 +81,7 @@ const ObjectiveCreator = (props) => {
 };
 
 const TimeLineList = ({ task }) => {
-  const [isCompleted, setIsCompleted] = useState(task.completed)
+  const [isCompleted, setIsCompleted] = useState(task.completed);
 
   const timelineStyle = {
     fontWeight: "500",
@@ -84,19 +93,18 @@ const TimeLineList = ({ task }) => {
     height: "30px",
     width: "30px",
     minWidth: "0",
-    backgroundColor: "grey"
+    backgroundColor: "grey",
   };
 
-
   const buttonColor = {
-    ...button, backgroundColor: isCompleted ? "green" : "grey"
-  }
+    ...button,
+    backgroundColor: isCompleted ? "green" : "grey",
+  };
 
   const handleComplete = (e) => {
-    oppService.updateStatus({ ...task, completed: !isCompleted })
-    setIsCompleted(!isCompleted)
-  }
-
+    oppService.updateStatus({ ...task, completed: !isCompleted });
+    setIsCompleted(!isCompleted);
+  };
 
   return (
     <TableRow>
@@ -108,11 +116,14 @@ const TimeLineList = ({ task }) => {
           {task.date.$M + 1}-{task.date.$D}-{task.date.$y}
         </div>
       </TableCell>
+      <TableCell></TableCell>
       <TableCell>
-        <Button style={buttonColor} onClick={(e) => handleComplete(e)} value={isCompleted}>
-          {isCompleted && (
-          <DoneIcon></DoneIcon>
-          )}
+        <Button
+          style={buttonColor}
+          onClick={(e) => handleComplete(e)}
+          value={isCompleted}
+        >
+          {isCompleted && <DoneIcon></DoneIcon>}
         </Button>
       </TableCell>
     </TableRow>
@@ -161,7 +172,6 @@ const TimeLine = (props) => {
     setDate(dayjs(`${MONTH}-${DAY}-${YEAR}`));
   };
 
-
   const setOpportunityHelper = (id) => {
     const opp = props.opps.find((o) => o.id === id);
     setOpportunity(opp);
@@ -170,6 +180,12 @@ const TimeLine = (props) => {
   useEffect(() => {
     setOpportunityHelper(opportunity.id);
   }, [tasks]);
+
+  const handleCopy = (event) => {
+    navigator.clipboard.writeText(serializeTimeline(opportunity.tasks));
+  };
+
+  opportunity.tasks.sort((a, b) => a.date - b.date);
 
   return (
     <>
@@ -205,18 +221,23 @@ const TimeLine = (props) => {
       />
       {props.timeline === null && <h1>Fill out your timeline now!</h1>}
       {props.timeline !== null && (
-        <TableContainer component={Paper} sx={{ mb: '200px'}}>
+        <TableContainer component={Paper} sx={{ mb: "200px" }}>
           <Table>
             <TableHead>
               <TableRow>
                 <TableCell sx={{ fontSize: "20px", fontWeight: "900" }}>
-                  Task
+                  Task:
                 </TableCell>
                 <TableCell
                   sx={{ fontSize: "20px", fontWeight: "900" }}
                   align="left"
                 >
                   Date Due:
+                </TableCell>
+                <TableCell>
+                  <Button variant="contained" onClick={handleCopy}>
+                    Copy Timeline to Clipboard
+                  </Button>
                 </TableCell>
                 <TableCell
                   sx={{ fontSize: "20px", fontWeight: "900" }}
