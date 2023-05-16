@@ -4,7 +4,6 @@ import Form from "./components/Form";
 import Opportunities from "./components/routes/OpportunityRoute";
 import TimeLine from "./components/routes/Timeline";
 import Nav from "./components/Nav";
-import ShareTimeline from "./components/routes/ShareTimeline"
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -16,7 +15,6 @@ import { darkPallete, lightPallete } from "./palletes";
 
 function App() {
   let darkMode = JSON.parse(localStorage.getItem("theme"))
-
 
   const [isDarkMode, setIsDarkMode] = useState(darkMode);
 
@@ -31,7 +29,7 @@ function App() {
     } else {
       setIsDarkMode(false);
     }
-  }, []);
+  }, [darkMode]);
 
   const theme = React.useMemo(() => {
     const pallete = isDarkMode ? darkPallete : lightPallete;

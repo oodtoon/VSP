@@ -1,120 +1,155 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import { Button, useTheme } from "@mui/material";
+import ToggleCopy from "./ToggleCopy";
+import InLineEdit from "./InLineEdit";
 import "../App.css";
-import { TextField, useTheme } from "@mui/material";
-import oppService from "../services/opps";
 
 const EntryBtn = {
-    color: '#000'
-}
-
-const InLineEdit = ({ opp, edit, opportunity }) => {
-  const [oppEdit, setOppEdit] = useState(opp);
-  const [isInputHidden, setIsInputHidden] = useState(true);
-  const inputRef = useRef(null);
-  const onChange = (event) => setOppEdit(event.target.value);
-
-  const onKeyDown = (event) => {
-
-    if (event.key === "Enter" && !event.shiftKey && isInputHidden === false) {
-      setIsInputHidden(true)
-    }
-  };
-
-  const blurHandler = (event) => {
-    const oppObject = {
-     [edit]: oppEdit
-    }
-    if (oppEdit !== opp) {
-      oppService.update(oppObject, opportunity.id).then((returnedOpp) => {
-        setIsInputHidden(true)
-        setOppEdit(returnedOpp[edit]);
-      
-      });
-    } else {
-      setIsInputHidden(true)
-    }
-
-  }
-
-  useEffect(() => {
-    if (!isInputHidden) {
-      inputRef.current.focus();
-    }
-  }, [isInputHidden]);
-
-  return (
-    <>
-      <TextField
-        type="text"
-        value={oppEdit}
-        onChange={onChange}
-        onKeyDown={onKeyDown}
-        onBlur={blurHandler}
-        onClick={() => setIsInputHidden(false)}
-        inputProps={{ ref: (input) => (inputRef.current = input) }}
-        size="small"
-        className={`inline-edit ${isInputHidden ? "hidden" : ""}`}
-        multiline
-        sx={{ width: '80%' }}
-      />
-
-      <span
-        style={{ fontWeight: "initial" }}
-        onClick={() => setIsInputHidden(false)}
-        tabIndex={0}
-        onFocus={() => {
-          setIsInputHidden(false);
-        }}
-        hidden={!isInputHidden}
-      >
-        {oppEdit}
-      </span>
-    </>
-  );
+  color: "#000",
 };
 
 const EntryInfo = ({ opp }) => {
+  const formatter = () => {
+    const oppFirstHalf = [];
+    const oppSecondHalf = [];
+    
+    if (opp.company !== "" && JSON.parse(localStorage.getItem('company')) === true) {
+      oppFirstHalf.push("Company: " + opp.company);
+    }
+
+    if (opp.contact !== "") {
+      oppFirstHalf.push("Contact: " + opp.contact);
+    }
+
+    if (opp.businessIssue !== "") {
+      oppFirstHalf.push("Business Issue: " + opp.businessIssue);
+    }
+
+    if (opp.anxietyQ !== "") {
+      oppFirstHalf.push("Anxiety Question: " + opp.anxietyQ);
+    }
+
+    if (opp.problem !== "") {
+      oppSecondHalf.push("Problem: " + opp.problem);
+    }
+
+    if (opp.solution !== "") {
+      oppSecondHalf.push("Solution: " + opp.solution);
+    }
+
+    if (opp.value !== "") {
+      oppSecondHalf.push("Value: " + opp.value);
+    }
+
+    if (opp.power !== "") {
+      oppSecondHalf.push("Power: " + opp.power);
+    }
+
+    if (opp.plan !== "") {
+      oppSecondHalf.push("Plan: " + opp.plan);
+    }
+
+    if (oppSecondHalf.length !== 0) {
+      oppFirstHalf.push("");
+      return oppFirstHalf.concat(oppSecondHalf).join("\n");
+    } else {
+      return oppFirstHalf.join("\n");
+    }
+  };
+
+  const handleCopy = (event) => {
+    navigator.clipboard.writeText(formatter());
+  };
 
   return (
-    <fieldset className="entry-details">
-      <label className="display-label">
-        Company: <InLineEdit opp={opp.company} edit={"company"} opportunity={opp}/>
-      </label>
-      <label>
-        Contact: <InLineEdit opp={opp.contact} edit={"contact"} opportunity={opp}/>
-      </label>
-      <label>
-        Business Issue:
-        <InLineEdit opp={opp.businessIssue} edit={"businessIssue"} opportunity={opp}/>
-      </label>
-      <label>
-        Anxiety Question: <InLineEdit opp={opp.anxietyQ} edit={"anxietyQ"} opportunity={opp}/>
-      </label>
-      <br />
-      <label>
-        Problem: <InLineEdit opp={opp.problem}  edit={"problem"} opportunity={opp}/>
-      </label>
-      <label>
-        Solution: <InLineEdit opp={opp.solution} edit={"solution"} opportunity={opp}/>
-      </label>
-      <label>
-        Value: <InLineEdit opp={opp.value} edit={"value"} opportunity={opp}/>
-      </label>
-      <label>
-        Power: <InLineEdit opp={opp.power} edit={"power"} opportunity={opp}/>
-      </label>
-      <label>
-        Plan: <InLineEdit opp={opp.plan} edit={"plan"} opportunity={opp}/>
-      </label>
-    </fieldset>
+    <div>
+      <fieldset className="entry-details">
+        <label className="display-label">
+          Company:{" "}
+          <InLineEdit
+            text={opp.company}
+            keyToEdit={"company"}
+            opportunity={opp}
+          />
+          <ToggleCopy keyToEdit={"company"} />
+        </label>
+        <label>
+          Contact:{" "}
+          <InLineEdit
+            text={opp.contact}
+            keyToEdit={"contact"}
+            opportunity={opp}
+          />
+          <ToggleCopy keyToEdit={"contact"} />
+        </label>
+        <label>
+          Business Issue:
+          <InLineEdit
+            text={opp.businessIssue}
+            keyToEdit={"businessIssue"}
+            opportunity={opp}
+          />
+          <ToggleCopy keyToEdit={"businessIssue"} />
+        </label>
+        <label>
+          Anxiety Question:{" "}
+          <InLineEdit
+            text={opp.anxietyQ}
+            keyToEdit={"anxietyQ"}
+            opportunity={opp}
+          />
+          <ToggleCopy keyToEdit={"anxietyQ"} />
+        </label>
+        <br />
+        <label>
+          Problem:{" "}
+          <InLineEdit
+            text={opp.problem}
+            keyToEdit={"problem"}
+            opportunity={opp}
+          />
+          <ToggleCopy keyToEdit={"problem"} />
+        </label>
+        <label>
+          Solution:{" "}
+          <InLineEdit
+            text={opp.solution}
+            keyToEdit={"solution"}
+            opportunity={opp}
+          />
+          <ToggleCopy keyToEdit={"solution"} />
+        </label>
+        <label>
+          Value:{" "}
+          <InLineEdit text={opp.value} keyToEdit={"value"} opportunity={opp} />
+          <ToggleCopy keyToEdit={"value"} />
+        </label>
+        <label>
+          Power:{" "}
+          <InLineEdit text={opp.power} keyToEdit={"power"} opportunity={opp} />
+          <ToggleCopy keyToEdit={"power"} />
+        </label>
+        <label>
+          Plan:{" "}
+          <InLineEdit text={opp.plan} keyToEdit={"plan"} opportunity={opp} />
+          <ToggleCopy keyToEdit={"plan"} />
+        </label>
+      </fieldset>
+      <Button variant="contained" onClick={handleCopy} sx={{ mb: '50px' }}>
+        Copy Opportunity to Clipboard
+      </Button>
+    </div>
   );
 };
 
 const Entries = ({ opp }) => {
   const [showAll, setShowAll] = useState(false);
-  const theme = useTheme()
+  const theme = useTheme();
 
-  const btnTheme = { ...EntryBtn, color: theme.palette.mode === 'dark' ? '#fff' : '#000'}
+  const btnTheme = {
+    ...EntryBtn,
+    color: theme.palette.mode === "dark" ? "#fff" : "#000",
+  };
   return (
     <div className="entry">
       <button
