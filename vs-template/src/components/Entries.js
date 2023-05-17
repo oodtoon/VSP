@@ -13,39 +13,39 @@ const EntryInfo = ({ opp }) => {
     const oppFirstHalf = [];
     const oppSecondHalf = [];
     
-    if (opp.company !== "" && JSON.parse(localStorage.getItem('company')) === true) {
+    if ((opp.company !== "" && JSON.parse(localStorage.getItem('company')) === true) || (localStorage.getItem('company') === null && opp.company !== "" )){
       oppFirstHalf.push("Company: " + opp.company);
     }
 
-    if (opp.contact !== "") {
+    if (opp.contact !== "" && JSON.parse(localStorage.getItem('contact')) === true) {
       oppFirstHalf.push("Contact: " + opp.contact);
     }
 
-    if (opp.businessIssue !== "") {
+    if (opp.businessIssue !== "" && JSON.parse(localStorage.getItem('businessIssue')) === true) {
       oppFirstHalf.push("Business Issue: " + opp.businessIssue);
     }
 
-    if (opp.anxietyQ !== "") {
+    if (opp.anxietyQ !== "" && JSON.parse(localStorage.getItem('anxietyQ')) === true) {
       oppFirstHalf.push("Anxiety Question: " + opp.anxietyQ);
     }
 
-    if (opp.problem !== "") {
+    if (opp.problem !== "" && JSON.parse(localStorage.getItem('problem')) === true) {
       oppSecondHalf.push("Problem: " + opp.problem);
     }
 
-    if (opp.solution !== "") {
+    if (opp.solution !== "" && JSON.parse(localStorage.getItem('solution')) === true) {
       oppSecondHalf.push("Solution: " + opp.solution);
     }
 
-    if (opp.value !== "") {
+    if (opp.value !== "" && JSON.parse(localStorage.getItem('value')) === true) {
       oppSecondHalf.push("Value: " + opp.value);
     }
 
-    if (opp.power !== "") {
+    if (opp.power !== "" && JSON.parse(localStorage.getItem('power')) === true) {
       oppSecondHalf.push("Power: " + opp.power);
     }
 
-    if (opp.plan !== "") {
+    if (opp.plan !== "" && JSON.parse(localStorage.getItem('plan')) === true) {
       oppSecondHalf.push("Plan: " + opp.plan);
     }
 
