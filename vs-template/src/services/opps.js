@@ -2,6 +2,7 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { serializeDayJsDate } from "../utils/serialize";
 const baseUrl = "http://localhost:3001/api/opps";
+const taskUrl = "http://localhost:3001/api/tasks"
 
 const deserialize = (task) => ({ ...task, date: dayjs(task.date) });
 
@@ -35,6 +36,11 @@ const update = async (newObject, id) => {
   return response.data
 }
 
+const removeOpp = async (id) => {
+  const response = await axios.delete(`${baseUrl}/${id}`)
+  return response.data
+}
+
 const updateStatus = async (newObject) => {
   const response = await axios.put(`${baseUrl}/${newObject.opp}/tasks`, newObject);
   return response.data;
@@ -48,10 +54,17 @@ const createTask = async (newObject) => {
   return response.data;
 };
 
+const removeTask = async (id) => {
+  const response = await axios.delete(`${taskUrl}/${id}`)
+  return response.data
+}
+
 export default {
   getAll,
   create,
   update,
   updateStatus,
   createTask,
+  removeOpp,
+  removeTask
 };

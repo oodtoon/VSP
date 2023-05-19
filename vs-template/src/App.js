@@ -156,6 +156,14 @@ function App() {
     setPower("");
   };
 
+  const handleDelete = (company, id) => {
+    if (window.confirm(`Are you sure you want to delete opportunity for ${company}?`)) {
+      oppService.removeOpp(id).then(() => {
+        setOpps(opps.filter((opp) => opp.id !== id))
+      })
+    }
+  }
+
 
   return (
     <div>
@@ -196,7 +204,7 @@ function App() {
               />
               <Route
                 path="/opportunities"
-                element={<Opportunities opps={opps} setOpps={setOpps}/>}
+                element={<Opportunities opps={opps} setOpps={setOpps} handleDelete={handleDelete}/>}
               />
               <Route
                 path="/tasks"

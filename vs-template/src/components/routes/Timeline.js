@@ -80,8 +80,10 @@ const ObjectiveCreator = (props) => {
   );
 };
 
-const TimeLineList = ({ task }) => {
+const TimeLineList = ({ task, handleTaskDelete }) => {
   const [isCompleted, setIsCompleted] = useState(task.completed);
+
+  console.log(task)
 
   const timelineStyle = {
     fontWeight: "500",
@@ -106,10 +108,13 @@ const TimeLineList = ({ task }) => {
     setIsCompleted(!isCompleted);
   };
 
+
   return (
     <TableRow>
       <TableCell align="left" sx={{ width: 500 }}>
-        <div style={timelineStyle}><TaskEdit text={task.task} task={task}/></div>
+        <div style={timelineStyle}>
+          <TaskEdit text={task.task} task={task} />
+        </div>
       </TableCell>
       <TableCell align="left">
         <div style={timelineStyle}>
@@ -125,6 +130,9 @@ const TimeLineList = ({ task }) => {
         >
           {isCompleted && <DoneIcon></DoneIcon>}
         </Button>
+      </TableCell>
+      <TableCell>
+        <Button onClick={handleTaskDelete}>Delete</Button>
       </TableCell>
     </TableRow>
   );
@@ -157,6 +165,7 @@ const TimeLine = (props) => {
       date: date,
       completed: false,
       opp: opp.id,
+      id: task.id
     };
 
     oppService
@@ -176,6 +185,16 @@ const TimeLine = (props) => {
     const opp = props.opps.find((o) => o.id === id);
     setOpportunity(opp);
   };
+
+  const handleTaskDelete = (task, taskId, oppId) => {
+    const opp = props.opps.find((o) => o.id === oppId);
+    if (window.confirm(`Are you sure you want to delete the task "${task}"?`)) {
+      oppService.removeTask(taskId).then(() => {
+        opp.tasks = opp.tasks.filter(task => task.id !== taskId);
+        setTasks(opp.tasks);
+      })
+    }
+  }
 
   useEffect(() => {
     setOpportunityHelper(opportunity.id);
@@ -245,11 +264,17 @@ const TimeLine = (props) => {
                 >
                   Status:
                 </TableCell>
+                <TableCell
+                  sx={{ fontSize: "20px", fontWeight: "900" }}
+                  align="left"
+                >
+                  Delete:
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {opportunity.tasks.map((task) => (
-                <TimeLineList key={task.id} task={task} />
+                <TimeLineList key={task.id} task={task} handleTaskDelete={() => handleTaskDelete(task.task, task.id, task.opp)}/>
               ))}
             </TableBody>
           </Table>

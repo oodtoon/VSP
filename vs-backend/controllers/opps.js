@@ -89,16 +89,19 @@ oppsRouter.post("/:id/tasks", async (request, response) => {
   response.status(201).json(savedTask);
 });
 
-oppsRouter.get("/:id/tasks", async (request, response) => {
-  const opp = await Task.find({ opp: new ObjectId(request.params.id) });
-  response.status(201).json(opp);
-});
 
 oppsRouter.put('/:id/tasks', async (request, response) => {
   const taskId = request.body.id
   const body = request.body
   const newTask = await Task.findByIdAndUpdate(taskId, body)
   response.status(200).json(newTask)
+})
+
+
+oppsRouter.delete('/:id/tasks', async (request, response) => {
+  const taskId = request.body.id
+  await Task.findByIdAndRemove(taskId)
+  response.status(204).end()
 })
 
 module.exports = oppsRouter;

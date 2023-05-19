@@ -5,7 +5,7 @@ const Opportunities = (props) => {
         <>
         <h2>Your Opportunities</h2>
         {props.opps.map((opp) => (
-              <Entries key={opp.id} opp={opp}/>
+              <Entries key={opp.id} opp={opp} handleDelete={() => props.handleDelete(opp.company, opp.id)}/>
             ))}
         </>
     )

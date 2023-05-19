@@ -2,13 +2,15 @@ import { useState } from "react";
 import { Button, useTheme } from "@mui/material";
 import ToggleCopy from "./ToggleCopy";
 import InLineEdit from "./InLineEdit";
+import oppService from '../services/opps'
 import "../App.css";
 
 const EntryBtn = {
   color: "#000",
 };
 
-const EntryInfo = ({ opp }) => {
+const EntryInfo = ({ opp, handleDelete }) => {
+
   const formatter = () => {
     const oppFirstHalf = [];
     const oppSecondHalf = [];
@@ -60,6 +62,7 @@ const EntryInfo = ({ opp }) => {
   const handleCopy = (event) => {
     navigator.clipboard.writeText(formatter());
   };
+
 
   return (
     <div>
@@ -147,11 +150,13 @@ const EntryInfo = ({ opp }) => {
       <Button variant="contained" onClick={handleCopy} sx={{ mb: '50px' }}>
         Copy Opportunity to Clipboard
       </Button>
+      <Button variant="contained" onClick={handleDelete} sx={{ mb: '50px', ml: '25px' }}>Delete</Button>
     </div>
   );
 };
 
-const Entries = ({ opp }) => {
+const Entries = ({ opp, handleDelete }) => {
+  console.log(handleDelete)
   const [showAll, setShowAll] = useState(false);
   const theme = useTheme();
 
@@ -170,7 +175,7 @@ const Entries = ({ opp }) => {
       >
         {opp.company}
       </button>
-      {showAll && <EntryInfo opp={opp} />}
+      {showAll && <EntryInfo opp={opp} handleDelete={handleDelete}/>}
     </div>
   );
 };

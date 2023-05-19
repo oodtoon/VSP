@@ -9,3 +9,5 @@ Content-Type: application/json
     "date": "07-18-2023"
 }
 
+###
+DELETE http://localhost:3001/api/tasks/64601c1dddc4d04c4c79fc67
