@@ -17,35 +17,35 @@ const EntryInfo = ({ opp }) => {
       oppFirstHalf.push("Company: " + opp.company);
     }
 
-    if (opp.contact !== "" && JSON.parse(localStorage.getItem('contact')) === true) {
+    if ((opp.contact !== "" && JSON.parse(localStorage.getItem('contact')) === true) || (localStorage.getItem('contact') === null && opp.contact !== "" )) {
       oppFirstHalf.push("Contact: " + opp.contact);
     }
 
-    if (opp.businessIssue !== "" && JSON.parse(localStorage.getItem('businessIssue')) === true) {
+    if ((opp.businessIssue !== "" && JSON.parse(localStorage.getItem('businessIssue')) === true) || (localStorage.getItem('businessISsue') === null && opp.businessIssue !== "" )) {
       oppFirstHalf.push("Business Issue: " + opp.businessIssue);
     }
 
-    if (opp.anxietyQ !== "" && JSON.parse(localStorage.getItem('anxietyQ')) === true) {
+    if ((opp.anxietyQ !== "" && JSON.parse(localStorage.getItem('anxietyQ')) === true) || (localStorage.getItem('anxietyQ') === null && opp.anxiety !== "" )) {
       oppFirstHalf.push("Anxiety Question: " + opp.anxietyQ);
     }
 
-    if (opp.problem !== "" && JSON.parse(localStorage.getItem('problem')) === true) {
+    if ((opp.problem !== "" && JSON.parse(localStorage.getItem('problem')) === true) || (localStorage.getItem('problem') === null && opp.problem !== "" ))  {
       oppSecondHalf.push("Problem: " + opp.problem);
     }
 
-    if (opp.solution !== "" && JSON.parse(localStorage.getItem('solution')) === true) {
+    if ((opp.solution !== "" && JSON.parse(localStorage.getItem('solution')) === true) || (localStorage.getItem('solution') === null && opp.solution !== "" )) {
       oppSecondHalf.push("Solution: " + opp.solution);
     }
 
-    if (opp.value !== "" && JSON.parse(localStorage.getItem('value')) === true) {
+    if ((opp.value !== "" && JSON.parse(localStorage.getItem('value')) === true) || (localStorage.getItem('value') === null && opp.value !== "" )) {
       oppSecondHalf.push("Value: " + opp.value);
     }
 
-    if (opp.power !== "" && JSON.parse(localStorage.getItem('power')) === true) {
+    if ((opp.power !== "" && JSON.parse(localStorage.getItem('power')) === true) || (localStorage.getItem('power') === null && opp.power !== "" )){
       oppSecondHalf.push("Power: " + opp.power);
     }
 
-    if (opp.plan !== "" && JSON.parse(localStorage.getItem('plan')) === true) {
+    if ((opp.plan !== "" && JSON.parse(localStorage.getItem('plan')) === true) || (localStorage.getItem('plan') === null && opp.plan !== "" )) {
       oppSecondHalf.push("Plan: " + opp.plan);
     }
 
