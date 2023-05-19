@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import oppService from "../../services/opps";
+import TaskEdit from "../TaskEdit";
 import {
   Button,
   TextField,
@@ -108,7 +109,7 @@ const TimeLineList = ({ task }) => {
   return (
     <TableRow>
       <TableCell align="left" sx={{ width: 500 }}>
-        <div style={timelineStyle}>{task.task}</div>
+        <div style={timelineStyle}><TaskEdit text={task.task} task={task}/></div>
       </TableCell>
       <TableCell align="left">
         <div style={timelineStyle}>

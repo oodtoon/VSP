@@ -91,14 +91,13 @@ oppsRouter.post("/:id/tasks", async (request, response) => {
 
 oppsRouter.get("/:id/tasks", async (request, response) => {
   const opp = await Task.find({ opp: new ObjectId(request.params.id) });
-
   response.status(201).json(opp);
 });
 
 oppsRouter.put('/:id/tasks', async (request, response) => {
   const taskId = request.body.id
   const body = request.body
-  const newTask = await Task.findByIdAndUpdate(taskId, request.body)
+  const newTask = await Task.findByIdAndUpdate(taskId, body)
   response.status(200).json(newTask)
 })
 

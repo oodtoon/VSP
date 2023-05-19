@@ -65,74 +65,83 @@ const EntryInfo = ({ opp }) => {
     <div>
       <fieldset className="entry-details">
         <label className="display-label">
+        <ToggleCopy keyToEdit={"company"} />
           Company:{" "}
           <InLineEdit
             text={opp.company}
             keyToEdit={"company"}
             opportunity={opp}
           />
-          <ToggleCopy keyToEdit={"company"} />
+          
         </label>
         <label>
+        <ToggleCopy keyToEdit={"contact"} />
           Contact:{" "}
           <InLineEdit
             text={opp.contact}
             keyToEdit={"contact"}
             opportunity={opp}
           />
-          <ToggleCopy keyToEdit={"contact"} />
+          
         </label>
         <label>
+        <ToggleCopy keyToEdit={"businessIssue"} />
           Business Issue:
           <InLineEdit
             text={opp.businessIssue}
             keyToEdit={"businessIssue"}
             opportunity={opp}
           />
-          <ToggleCopy keyToEdit={"businessIssue"} />
+          
         </label>
         <label>
+        <ToggleCopy keyToEdit={"anxietyQ"} />
           Anxiety Question:{" "}
           <InLineEdit
             text={opp.anxietyQ}
             keyToEdit={"anxietyQ"}
             opportunity={opp}
           />
-          <ToggleCopy keyToEdit={"anxietyQ"} />
+          
         </label>
         <br />
         <label>
+        <ToggleCopy keyToEdit={"problem"} />
           Problem:{" "}
           <InLineEdit
             text={opp.problem}
             keyToEdit={"problem"}
             opportunity={opp}
           />
-          <ToggleCopy keyToEdit={"problem"} />
+          
         </label>
         <label>
+        <ToggleCopy keyToEdit={"solution"} />
           Solution:{" "}
           <InLineEdit
             text={opp.solution}
             keyToEdit={"solution"}
             opportunity={opp}
           />
-          <ToggleCopy keyToEdit={"solution"} />
+          
         </label>
         <label>
+        <ToggleCopy keyToEdit={"value"} />
           Value:{" "}
           <InLineEdit text={opp.value} keyToEdit={"value"} opportunity={opp} />
-          <ToggleCopy keyToEdit={"value"} />
+          
         </label>
         <label>
+        <ToggleCopy keyToEdit={"power"} />
           Power:{" "}
           <InLineEdit text={opp.power} keyToEdit={"power"} opportunity={opp} />
-          <ToggleCopy keyToEdit={"power"} />
+          
         </label>
         <label>
+        <ToggleCopy keyToEdit={"plan"} />
           Plan:{" "}
           <InLineEdit text={opp.plan} keyToEdit={"plan"} opportunity={opp} />
-          <ToggleCopy keyToEdit={"plan"} />
+          
         </label>
       </fieldset>
       <Button variant="contained" onClick={handleCopy} sx={{ mb: '50px' }}>
