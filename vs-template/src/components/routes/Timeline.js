@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import oppService from "../../services/opps";
-import TaskEdit from "../TaskEdit";
+import InLineEdit from "../InLineEdit";
 import {
   Button,
   TextField,
@@ -83,8 +83,6 @@ const ObjectiveCreator = (props) => {
 const TimeLineList = ({ task, handleTaskDelete }) => {
   const [isCompleted, setIsCompleted] = useState(task.completed);
 
-  console.log(task)
-
   const timelineStyle = {
     fontWeight: "500",
     fontSize: "18px",
@@ -108,12 +106,16 @@ const TimeLineList = ({ task, handleTaskDelete }) => {
     setIsCompleted(!isCompleted);
   };
 
-
   return (
     <TableRow>
       <TableCell align="left" sx={{ width: 500 }}>
         <div style={timelineStyle}>
-          <TaskEdit text={task.task} task={task} />
+          {/*<TaskEdit text={task.task} task={task} />*/}
+          <InLineEdit
+            text={task.task}
+            keyToEdit={"task"}
+            obj={task}
+          />
         </div>
       </TableCell>
       <TableCell align="left">
@@ -165,13 +167,16 @@ const TimeLine = (props) => {
       date: date,
       completed: false,
       opp: opp.id,
-      id: task.id
     };
 
     oppService
       .createTask(taskObj)
-      .then(() => {
-        opp.tasks = opp.tasks.concat(taskObj);
+      .then((returnedTask) => {
+        opp.tasks = opp.tasks.concat({
+          ...returnedTask,
+          date: dayjs(returnedTask.date),
+        });
+        console.log(returnedTask);
         setTasks(opp.tasks);
       })
       .catch((error) => {
@@ -190,11 +195,11 @@ const TimeLine = (props) => {
     const opp = props.opps.find((o) => o.id === oppId);
     if (window.confirm(`Are you sure you want to delete the task "${task}"?`)) {
       oppService.removeTask(taskId).then(() => {
-        opp.tasks = opp.tasks.filter(task => task.id !== taskId);
+        opp.tasks = opp.tasks.filter((task) => task.id !== taskId);
         setTasks(opp.tasks);
-      })
+      });
     }
-  }
+  };
 
   useEffect(() => {
     setOpportunityHelper(opportunity.id);
@@ -274,7 +279,13 @@ const TimeLine = (props) => {
             </TableHead>
             <TableBody>
               {opportunity.tasks.map((task) => (
-                <TimeLineList key={task.id} task={task} handleTaskDelete={() => handleTaskDelete(task.task, task.id, task.opp)}/>
+                <TimeLineList
+                  key={task.id}
+                  task={task}
+                  handleTaskDelete={() =>
+                    handleTaskDelete(task.task, task.id, task.opp)
+                  }
+                />
               ))}
             </TableBody>
           </Table>

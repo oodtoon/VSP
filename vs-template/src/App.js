@@ -157,7 +157,7 @@ function App() {
   };
 
   const handleDelete = (company, id) => {
-    if (window.confirm(`Are you sure you want to delete opportunity for ${company}?`)) {
+    if (window.confirm(`Are you sure you want to delete opportunity for "${company}"?`)) {
       oppService.removeOpp(id).then(() => {
         setOpps(opps.filter((opp) => opp.id !== id))
       })

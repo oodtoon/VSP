@@ -145,7 +145,7 @@ const BasicInfo = (props) => {
           className="medium-input"
           onChange={props.handleCompany}
           value={props.company}
-          sx={inputStyle}
+          sx={{ inputStyle, ml: '10px' }}
           required
         />
       </label>
@@ -158,7 +158,7 @@ const BasicInfo = (props) => {
           className="medium-input"
           onChange={props.handleContact}
           value={props.contact}
-          sx={inputStyle}
+          sx={{ inputStyle, ml: '10px' }}
         />
       </label>
       <label className="basic-label" style={props.labelStyle}>
@@ -170,7 +170,7 @@ const BasicInfo = (props) => {
           className="long-input"
           onChange={props.handleBusinessIssue}
           value={props.businessIssue}
-          sx={inputStyle}
+          sx={{ inputStyle, ml: '10px' }}
         />
       </label>
       <label className="basic-label" style={props.labelStyle}>
@@ -182,7 +182,7 @@ const BasicInfo = (props) => {
           className="long-input"
           onChange={props.handleAnxietyQ}
           value={props.anxietyQ}
-          sx={inputStyle}
+          sx={{ inputStyle, ml: '10px' }}
         />
       </label>{" "}
     </fieldset>

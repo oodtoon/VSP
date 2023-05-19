@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button, useTheme } from "@mui/material";
 import ToggleCopy from "./ToggleCopy";
 import InLineEdit from "./InLineEdit";
-import oppService from '../services/opps'
 import "../App.css";
 
 const EntryBtn = {
@@ -63,19 +62,18 @@ const EntryInfo = ({ opp, handleDelete }) => {
     navigator.clipboard.writeText(formatter());
   };
 
-
   return (
     <div>
       <fieldset className="entry-details">
         <label className="display-label">
-        <ToggleCopy keyToEdit={"company"} />
+        
           Company:{" "}
           <InLineEdit
             text={opp.company}
             keyToEdit={"company"}
-            opportunity={opp}
+            obj={opp}
           />
-          
+         <ToggleCopy keyToEdit={"company"} /> 
         </label>
         <label>
         <ToggleCopy keyToEdit={"contact"} />
@@ -83,7 +81,7 @@ const EntryInfo = ({ opp, handleDelete }) => {
           <InLineEdit
             text={opp.contact}
             keyToEdit={"contact"}
-            opportunity={opp}
+            obj={opp}
           />
           
         </label>
@@ -93,7 +91,7 @@ const EntryInfo = ({ opp, handleDelete }) => {
           <InLineEdit
             text={opp.businessIssue}
             keyToEdit={"businessIssue"}
-            opportunity={opp}
+            obj={opp}
           />
           
         </label>
@@ -103,7 +101,7 @@ const EntryInfo = ({ opp, handleDelete }) => {
           <InLineEdit
             text={opp.anxietyQ}
             keyToEdit={"anxietyQ"}
-            opportunity={opp}
+            obj={opp}
           />
           
         </label>
@@ -114,7 +112,7 @@ const EntryInfo = ({ opp, handleDelete }) => {
           <InLineEdit
             text={opp.problem}
             keyToEdit={"problem"}
-            opportunity={opp}
+            obj={opp}
           />
           
         </label>
@@ -124,26 +122,26 @@ const EntryInfo = ({ opp, handleDelete }) => {
           <InLineEdit
             text={opp.solution}
             keyToEdit={"solution"}
-            opportunity={opp}
+            obj={opp}
           />
           
         </label>
         <label>
         <ToggleCopy keyToEdit={"value"} />
           Value:{" "}
-          <InLineEdit text={opp.value} keyToEdit={"value"} opportunity={opp} />
+          <InLineEdit text={opp.value} keyToEdit={"value"} obj={opp} />
           
         </label>
         <label>
         <ToggleCopy keyToEdit={"power"} />
           Power:{" "}
-          <InLineEdit text={opp.power} keyToEdit={"power"} opportunity={opp} />
+          <InLineEdit text={opp.power} keyToEdit={"power"} obj={opp} />
           
         </label>
         <label>
         <ToggleCopy keyToEdit={"plan"} />
           Plan:{" "}
-          <InLineEdit text={opp.plan} keyToEdit={"plan"} opportunity={opp} />
+          <InLineEdit text={opp.plan} keyToEdit={"plan"} obj={opp} />
           
         </label>
       </fieldset>
@@ -156,7 +154,6 @@ const EntryInfo = ({ opp, handleDelete }) => {
 };
 
 const Entries = ({ opp, handleDelete }) => {
-  console.log(handleDelete)
   const [showAll, setShowAll] = useState(false);
   const theme = useTheme();
 
