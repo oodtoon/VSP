@@ -55,10 +55,10 @@ const Login = ({
               label="password"
             />
           </label>
-          <Button type="submit">Log In</Button>
+          <Button type="submit" variant="contained">Log In</Button>
         </form>
         <Button component={Link} to="createaccount" variant="contained" sx={{ mt: '10px', mr: '20px' }}>Create Account</Button>
-        <Link>Forgot Password?</Link>
+        <Link to="/forgotpassword">Forgot Password?</Link>
       </fieldset>
     </>
   );

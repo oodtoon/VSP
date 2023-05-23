@@ -5,6 +5,8 @@ import Form from "./components/Form";
 import Opportunities from "./components/routes/OpportunityRoute";
 import TimeLine from "./components/routes/Timeline";
 import CreateAccount from "./components/routes/CreateAccount";
+import GamePlan from "./components/routes/GamePlan";
+import ForgotPassword from "./components/routes/ForgotPassword";
 import Nav from "./components/Nav";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -73,6 +75,15 @@ function App() {
       },
     });
   }, [isDarkMode]);
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedVSPappUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setUser(user)
+      oppService.setToken(user.token)
+    }
+  }, [])
 
   const [opps, setOpps] = useState([]);
 
@@ -192,6 +203,10 @@ function App() {
         username,
         password,
       });
+
+      window.localStorage.setItem("loggedVSPappUser", JSON.stringify(user));
+
+      oppService.setToken(user.token);
       setUser(user);
       setUsername("");
       setPassword("");
@@ -202,7 +217,8 @@ function App() {
   };
 
   const handleLogout = () => {
-    console.log("loggin out");
+    window.localStorage.removeItem('loggedVSPappUser')
+    setUser(null)
   };
 
   return (
@@ -262,14 +278,17 @@ function App() {
                     opps={opps}
                     setOpps={setOpps}
                     handleDelete={handleDelete}
+                    user={user}
                   />
                 }
               />
               <Route
                 path="/tasks"
-                element={opps.length !== 0 && <TimeLine opps={opps} />}
+                element={opps.length !== 0 && <TimeLine opps={opps} user={user}/>}
               />
-              <Route path="createaccount" element={<CreateAccount />} />
+              <Route path="gameplan" element={<GamePlan user={user}/>} />
+              <Route path="createaccount" element={<CreateAccount user={user}/>} />
+              <Route path="forgotpassword" element={<ForgotPassword user={user}/>} />
             </Routes>
           </Container>
         </Router>

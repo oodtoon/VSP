@@ -4,6 +4,12 @@ import { serializeDayJsDate } from "../utils/serialize";
 const baseUrl = "http://localhost:3001/api/opps";
 const taskUrl = "http://localhost:3001/api/tasks"
 
+let token = null
+
+const setToken = newToken => {
+  token = `Bearer ${newToken}`
+}
+
 const deserialize = (task) => ({ ...task, date: dayjs(task.date) });
 
 const serialize = (task) => {
@@ -26,8 +32,11 @@ const getAll = () => {
 };
 
 const create = async (newObject) => {
-  const request = axios.post(baseUrl, newObject);
-  const response = await request;
+  const config = {
+    headers: { Authorization: token }
+  }
+
+  const response = await axios.post(baseUrl, newObject, config);
   return response.data;
 };
 
@@ -67,5 +76,6 @@ export default {
   updateStatus,
   createTask,
   removeOpp,
-  removeTask
+  removeTask,
+  setToken
 };
