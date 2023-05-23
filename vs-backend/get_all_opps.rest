@@ -18,3 +18,21 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3001/api/opps/6459bb87a0bb9f1ebe50d54e
+
+###
+POST http://localhost:3001/api/opps
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY0NmJkZmY5Zjc0MDFiNjMyZTQ5MmY0NyIsImlhdCI6MTY4NDgwODc5N30.OVLuEtfsu7UKsKU548IRG5p03BqBbFFXjoSu_llL8ys
+
+{
+ "company": "Another Test",
+ "contact": "Victoria",
+ "businessIssue": "the Kinks",
+ "anxietyQ": "too much youtube therapy",
+ "problem": "Too tired",
+ "solution": "sleep",
+ "value": "rest is good",
+ "power": "jeff",
+ "plan": "sell",
+"user": "root"
+} 

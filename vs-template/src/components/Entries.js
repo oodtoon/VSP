@@ -9,44 +9,79 @@ const EntryBtn = {
 };
 
 const EntryInfo = ({ opp, handleDelete }) => {
-
   const formatter = () => {
     const oppFirstHalf = [];
     const oppSecondHalf = [];
-    
-    if ((opp.company !== "" && JSON.parse(localStorage.getItem('company')) === true) || (localStorage.getItem('company') === null && opp.company !== "" )){
+
+    if (
+      (opp.company !== "" &&
+        JSON.parse(localStorage.getItem("company")) === true) ||
+      (localStorage.getItem("company") === null && opp.company !== "")
+    ) {
       oppFirstHalf.push("Company: " + opp.company);
     }
 
-    if ((opp.contact !== "" && JSON.parse(localStorage.getItem('contact')) === true) || (localStorage.getItem('contact') === null && opp.contact !== "" )) {
+    if (
+      (opp.contact !== "" &&
+        JSON.parse(localStorage.getItem("contact")) === true) ||
+      (localStorage.getItem("contact") === null && opp.contact !== "")
+    ) {
       oppFirstHalf.push("Contact: " + opp.contact);
     }
 
-    if ((opp.businessIssue !== "" && JSON.parse(localStorage.getItem('businessIssue')) === true) || (localStorage.getItem('businessISsue') === null && opp.businessIssue !== "" )) {
+    if (
+      (opp.businessIssue !== "" &&
+        JSON.parse(localStorage.getItem("businessIssue")) === true) ||
+      (localStorage.getItem("businessISsue") === null &&
+        opp.businessIssue !== "")
+    ) {
       oppFirstHalf.push("Business Issue: " + opp.businessIssue);
     }
 
-    if ((opp.anxietyQ !== "" && JSON.parse(localStorage.getItem('anxietyQ')) === true) || (localStorage.getItem('anxietyQ') === null && opp.anxiety !== "" )) {
+    if (
+      (opp.anxietyQ !== "" &&
+        JSON.parse(localStorage.getItem("anxietyQ")) === true) ||
+      (localStorage.getItem("anxietyQ") === null && opp.anxiety !== "")
+    ) {
       oppFirstHalf.push("Anxiety Question: " + opp.anxietyQ);
     }
 
-    if ((opp.problem !== "" && JSON.parse(localStorage.getItem('problem')) === true) || (localStorage.getItem('problem') === null && opp.problem !== "" ))  {
+    if (
+      (opp.problem !== "" &&
+        JSON.parse(localStorage.getItem("problem")) === true) ||
+      (localStorage.getItem("problem") === null && opp.problem !== "")
+    ) {
       oppSecondHalf.push("Problem: " + opp.problem);
     }
 
-    if ((opp.solution !== "" && JSON.parse(localStorage.getItem('solution')) === true) || (localStorage.getItem('solution') === null && opp.solution !== "" )) {
+    if (
+      (opp.solution !== "" &&
+        JSON.parse(localStorage.getItem("solution")) === true) ||
+      (localStorage.getItem("solution") === null && opp.solution !== "")
+    ) {
       oppSecondHalf.push("Solution: " + opp.solution);
     }
 
-    if ((opp.value !== "" && JSON.parse(localStorage.getItem('value')) === true) || (localStorage.getItem('value') === null && opp.value !== "" )) {
+    if (
+      (opp.value !== "" &&
+        JSON.parse(localStorage.getItem("value")) === true) ||
+      (localStorage.getItem("value") === null && opp.value !== "")
+    ) {
       oppSecondHalf.push("Value: " + opp.value);
     }
 
-    if ((opp.power !== "" && JSON.parse(localStorage.getItem('power')) === true) || (localStorage.getItem('power') === null && opp.power !== "" )){
+    if (
+      (opp.power !== "" &&
+        JSON.parse(localStorage.getItem("power")) === true) ||
+      (localStorage.getItem("power") === null && opp.power !== "")
+    ) {
       oppSecondHalf.push("Power: " + opp.power);
     }
 
-    if ((opp.plan !== "" && JSON.parse(localStorage.getItem('plan')) === true) || (localStorage.getItem('plan') === null && opp.plan !== "" )) {
+    if (
+      (opp.plan !== "" && JSON.parse(localStorage.getItem("plan")) === true) ||
+      (localStorage.getItem("plan") === null && opp.plan !== "")
+    ) {
       oppSecondHalf.push("Plan: " + opp.plan);
     }
 
@@ -65,90 +100,81 @@ const EntryInfo = ({ opp, handleDelete }) => {
   return (
     <div>
       <fieldset className="entry-details">
-        <label className="display-label">
-        
-          Company:{" "}
-          <InLineEdit
-            text={opp.company}
-            keyToEdit={"company"}
-            obj={opp}
-          />
-         <ToggleCopy keyToEdit={"company"} /> 
-        </label>
-        <label>
-        <ToggleCopy keyToEdit={"contact"} />
-          Contact:{" "}
-          <InLineEdit
-            text={opp.contact}
-            keyToEdit={"contact"}
-            obj={opp}
-          />
-          
-        </label>
-        <label>
-        <ToggleCopy keyToEdit={"businessIssue"} />
-          Business Issue:
-          <InLineEdit
-            text={opp.businessIssue}
-            keyToEdit={"businessIssue"}
-            obj={opp}
-          />
-          
-        </label>
-        <label>
-        <ToggleCopy keyToEdit={"anxietyQ"} />
-          Anxiety Question:{" "}
-          <InLineEdit
-            text={opp.anxietyQ}
-            keyToEdit={"anxietyQ"}
-            obj={opp}
-          />
-          
-        </label>
+        <div className="entry-line">
+          <ToggleCopy keyToEdit={"company"} />
+          <label className="display-label">
+            Company:{" "}
+            <InLineEdit text={opp.company} keyToEdit={"company"} obj={opp} />
+          </label>
+        </div>
+
+        <div className="entry-line">
+          <ToggleCopy keyToEdit={"contact"} />
+          <label>
+            Contact:{" "}
+            <InLineEdit text={opp.contact} keyToEdit={"contact"} obj={opp} />
+          </label>
+        </div>
+        <div className="entry-line">
+          <ToggleCopy keyToEdit={"businessIssue"} />
+          <label>
+            Business Issue:
+            <InLineEdit
+              text={opp.businessIssue}
+              keyToEdit={"businessIssue"}
+              obj={opp}
+            />
+          </label>
+        </div>
+        <div className="entry-line">
+          <ToggleCopy keyToEdit={"anxietyQ"} />
+          <label className="edit-label">
+            Anxiety Question:{" "}
+            <InLineEdit text={opp.anxietyQ} keyToEdit={"anxietyQ"} obj={opp} />
+          </label>
+        </div>
         <br />
+        <div className="entry-line">
+          <ToggleCopy keyToEdit={"problem"} />
+          <label>
+            Problem:{" "}
+            <InLineEdit text={opp.problem} keyToEdit={"problem"} obj={opp} />
+          </label>
+        </div>
+        <div className="entry-line">
+          <ToggleCopy keyToEdit={"solution"} />
+          <label>
+            Solution:{" "}
+            <InLineEdit text={opp.solution} keyToEdit={"solution"} obj={opp} />
+          </label>
+        </div>
+        <div className="entry-line">
+          <ToggleCopy keyToEdit={"value"} />
+          <label>
+            Value: <InLineEdit text={opp.value} keyToEdit={"value"} obj={opp} />
+          </label>
+        </div>
+        <div className="entry-line">
+          <ToggleCopy keyToEdit={"power"} />
+          <label>
+            Power: <InLineEdit text={opp.power} keyToEdit={"power"} obj={opp} />
+          </label>
+        </div>
         <label>
-        <ToggleCopy keyToEdit={"problem"} />
-          Problem:{" "}
-          <InLineEdit
-            text={opp.problem}
-            keyToEdit={"problem"}
-            obj={opp}
-          />
-          
-        </label>
-        <label>
-        <ToggleCopy keyToEdit={"solution"} />
-          Solution:{" "}
-          <InLineEdit
-            text={opp.solution}
-            keyToEdit={"solution"}
-            obj={opp}
-          />
-          
-        </label>
-        <label>
-        <ToggleCopy keyToEdit={"value"} />
-          Value:{" "}
-          <InLineEdit text={opp.value} keyToEdit={"value"} obj={opp} />
-          
-        </label>
-        <label>
-        <ToggleCopy keyToEdit={"power"} />
-          Power:{" "}
-          <InLineEdit text={opp.power} keyToEdit={"power"} obj={opp} />
-          
-        </label>
-        <label>
-        <ToggleCopy keyToEdit={"plan"} />
-          Plan:{" "}
-          <InLineEdit text={opp.plan} keyToEdit={"plan"} obj={opp} />
-          
+          <ToggleCopy keyToEdit={"plan"} />
+          Plan: <InLineEdit text={opp.plan} keyToEdit={"plan"} obj={opp} />
         </label>
       </fieldset>
-      <Button variant="contained" onClick={handleCopy} sx={{ mb: '50px' }}>
+      <Button variant="contained" onClick={handleCopy} sx={{ mb: "50px" }}>
         Copy Opportunity to Clipboard
       </Button>
-      <Button variant="contained" onClick={handleDelete} sx={{ mb: '50px', ml: '25px' }}>Delete</Button>
+      <Button
+        variant="contained"
+        onClick={handleDelete}
+        sx={{ mb: "50px", ml: "25px" }}
+      >
+        Delete
+      </Button>
     </div>
   );
 };
@@ -172,7 +198,7 @@ const Entries = ({ opp, handleDelete }) => {
       >
         {opp.company}
       </button>
-      {showAll && <EntryInfo opp={opp} handleDelete={handleDelete}/>}
+      {showAll && <EntryInfo opp={opp} handleDelete={handleDelete} />}
     </div>
   );
 };

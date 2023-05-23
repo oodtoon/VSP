@@ -1,2 +1,6 @@
 .env
 mongo.js
+login.rest
+get_all_opps.rest
+get_all_tasks.rest
+get_all_users.rest

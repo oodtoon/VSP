@@ -190,10 +190,9 @@ header.header {
   color: var(--primary-300);
 }
 
-.display-label {
-  margin-bottom: -px;
+.entry-line {
+  display: flex
 }
 
-.inline-switch {
-  display: inline;
-}
+
+

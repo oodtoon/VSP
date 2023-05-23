@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-
-
 const oppSchema = new mongoose.Schema({
   company: String,
   contact: String,
@@ -15,9 +13,11 @@ const oppSchema = new mongoose.Schema({
   date: String,
   tasks: [
     {
-      type: mongoose.Schema.Types.ObjectId, ref: 'Task'
-    }
-  ]
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Task",
+    },
+  ],
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 oppSchema.set("toJSON", {
