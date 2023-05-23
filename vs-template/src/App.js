@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import oppService from "./services/opps";
+import loginService from "./services/login";
 import Form from "./components/Form";
 import Opportunities from "./components/routes/OpportunityRoute";
 import TimeLine from "./components/routes/Timeline";
+import CreateAccount from "./components/routes/CreateAccount";
 import Nav from "./components/Nav";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -14,12 +16,12 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { darkPallete, lightPallete } from "./palletes";
 
 function App() {
-  let darkMode = JSON.parse(localStorage.getItem("theme"))
+  let darkMode = JSON.parse(localStorage.getItem("theme"));
 
   const [isDarkMode, setIsDarkMode] = useState(darkMode);
 
   const handleDarkModeToggle = () => {
-    localStorage.setItem('theme', !isDarkMode)
+    localStorage.setItem("theme", !isDarkMode);
     setIsDarkMode(!isDarkMode);
   };
 
@@ -85,6 +87,10 @@ function App() {
 
   const [plan, setPlan] = useState("");
   const [power, setPower] = useState("");
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     oppService.getAll().then((initialOpps) => {
@@ -157,20 +163,59 @@ function App() {
   };
 
   const handleDelete = (company, id) => {
-    if (window.confirm(`Are you sure you want to delete opportunity for "${company}"?`)) {
+    if (
+      window.confirm(
+        `Are you sure you want to delete opportunity for "${company}"?`
+      )
+    ) {
       oppService.removeOpp(id).then(() => {
-        setOpps(opps.filter((opp) => opp.id !== id))
-      })
+        setOpps(opps.filter((opp) => opp.id !== id));
+      });
     }
-  }
+  };
 
+  const handleUsername = (event) => {
+    setUsername(event.target.value);
+    console.log(event.target.value);
+  };
+
+  const handlePassword = (event) => {
+    setPassword(event.target.value);
+    console.log(event.target.value);
+  };
+
+  const handleLogin = async (event) => {
+    event.preventDefault();
+
+    try {
+      const user = await loginService.login({
+        username,
+        password,
+      });
+      setUser(user);
+      setUsername("");
+      setPassword("");
+      console.log("logged in with", username);
+    } catch (exception) {
+      console.log("wrong info", exception);
+    }
+  };
+
+  const handleLogout = () => {
+    console.log("loggin out");
+  };
 
   return (
     <div>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
-          <Nav handleDarkModeToggle={handleDarkModeToggle} isDarkMode={isDarkMode}/>
+          <Nav
+            handleDarkModeToggle={handleDarkModeToggle}
+            isDarkMode={isDarkMode}
+            user={user}
+            handleLogout={handleLogout}
+          />
           <Container>
             <Routes>
               <Route
@@ -199,17 +244,32 @@ function App() {
                     opps={opps}
                     setOpps={setOpps}
                     isDarkMode={isDarkMode}
+                    username={username}
+                    setUsername={setUsername}
+                    handleUsername={handleUsername}
+                    password={password}
+                    setPassword={setPassword}
+                    handlePassword={handlePassword}
+                    handleLogin={handleLogin}
+                    user={user}
                   />
                 }
               />
               <Route
                 path="/opportunities"
-                element={<Opportunities opps={opps} setOpps={setOpps} handleDelete={handleDelete}/>}
+                element={
+                  <Opportunities
+                    opps={opps}
+                    setOpps={setOpps}
+                    handleDelete={handleDelete}
+                  />
+                }
               />
               <Route
                 path="/tasks"
                 element={opps.length !== 0 && <TimeLine opps={opps} />}
               />
+              <Route path="createaccount" element={<CreateAccount />} />
             </Routes>
           </Container>
         </Router>

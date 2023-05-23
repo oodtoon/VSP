@@ -2,6 +2,7 @@ import { Button, TextField, useTheme } from "@mui/material";
 import Entries from "./Entries";
 import "../App.css";
 import { getCssPropertyValue } from "../utils/style";
+import Login from "./Login";
 
 const inputStyle = {
   backgroundColor: "white",
@@ -9,31 +10,39 @@ const inputStyle = {
 };
 
 const basicStyle = {
-    textAlign: 'right',
-    backgroundColor: getCssPropertyValue('--secondary-200'),
-    borderRadius: '4px',
-}
+  textAlign: "right",
+  backgroundColor: getCssPropertyValue("--secondary-200"),
+  borderRadius: "4px",
+};
 
 const mainStyle = {
-    display: 'grid',
-    gridTemplate: 'auto auto / auto auto',
-    backgroundColor: getCssPropertyValue('--secondary-200'),
-    borderRadius: '4px',
-    textAlign: 'center',
-    margin: '0 0 10px 0',
-}
+  display: "grid",
+  gridTemplate: "auto auto / auto auto",
+  backgroundColor: getCssPropertyValue("--secondary-200"),
+  borderRadius: "4px",
+  textAlign: "center",
+  margin: "0 0 10px 0",
+};
 
 const mainLabel = {
-  fontSize: 'x-large',
-  color: getCssPropertyValue('--primary-300')
-}
+  fontSize: "x-large",
+  color: getCssPropertyValue("--primary-300"),
+};
 
 const MainInput = (props) => {
   const theme = useTheme();
 
   return (
-    <div className="basic-label"
-    style={{ ...mainStyle, backgroundColor: theme.palette.mode === 'dark' ? getCssPropertyValue('--primary-100') : getCssPropertyValue('--secondary-200') }}>
+    <div
+      className="basic-label"
+      style={{
+        ...mainStyle,
+        backgroundColor:
+          theme.palette.mode === "dark"
+            ? getCssPropertyValue("--primary-100")
+            : getCssPropertyValue("--secondary-200"),
+      }}
+    >
       <fieldset>
         <div>
           <label style={props.labelStyle} htmlFor="problem">
@@ -96,10 +105,9 @@ const MainInput = (props) => {
 };
 
 const SubInput = (props) => {
-
   return (
     <>
-      <div className="sub-label" >
+      <div className="sub-label">
         <label style={props.labelStyle} htmlFor="power">
           Power
         </label>
@@ -135,7 +143,15 @@ const BasicInfo = (props) => {
   const theme = useTheme();
 
   return (
-    <fieldset style={{ ...basicStyle, backgroundColor: theme.palette.mode === 'dark' ? getCssPropertyValue('--primary-100') : getCssPropertyValue('--secondary-200') }}>
+    <fieldset
+      style={{
+        ...basicStyle,
+        backgroundColor:
+          theme.palette.mode === "dark"
+            ? getCssPropertyValue("--primary-100")
+            : getCssPropertyValue("--secondary-200"),
+      }}
+    >
       <label className="basic-label" style={props.labelStyle}>
         Company
         <TextField
@@ -145,7 +161,7 @@ const BasicInfo = (props) => {
           className="medium-input"
           onChange={props.handleCompany}
           value={props.company}
-          sx={{ inputStyle, ml: '10px' }}
+          sx={{ inputStyle, ml: "10px" }}
           required
         />
       </label>
@@ -158,7 +174,7 @@ const BasicInfo = (props) => {
           className="medium-input"
           onChange={props.handleContact}
           value={props.contact}
-          sx={{ inputStyle, ml: '10px' }}
+          sx={{ inputStyle, ml: "10px" }}
         />
       </label>
       <label className="basic-label" style={props.labelStyle}>
@@ -170,7 +186,7 @@ const BasicInfo = (props) => {
           className="long-input"
           onChange={props.handleBusinessIssue}
           value={props.businessIssue}
-          sx={{ inputStyle, ml: '10px' }}
+          sx={{ inputStyle, ml: "10px" }}
         />
       </label>
       <label className="basic-label" style={props.labelStyle}>
@@ -182,7 +198,7 @@ const BasicInfo = (props) => {
           className="long-input"
           onChange={props.handleAnxietyQ}
           value={props.anxietyQ}
-          sx={{ inputStyle, ml: '10px' }}
+          sx={{ inputStyle, ml: "10px" }}
         />
       </label>{" "}
     </fieldset>
@@ -193,49 +209,80 @@ const Form = (props) => {
   const theme = useTheme();
 
   const labelStyle = {
-    ...mainLabel, color: theme.palette.mode === 'dark' ? '#fff' : getCssPropertyValue('--primary-300') 
-  }
+    ...mainLabel,
+    color:
+      theme.palette.mode === "dark"
+        ? "#fff"
+        : getCssPropertyValue("--primary-300"),
+  };
+
+  const loginForm = () => (
+<div>
+  <h1>Welcome to the Value Selling Tracker</h1>
+  <h1>Please sign in to get started!</h1>
+  <Login
+    username={props.username}
+    setUsername={props.setUsername}
+    password={props.password}
+    setPassword={props.setPassword}
+    handleLogin={props.handleLogin}
+    handleUsername={props.handleUsername}
+    handlePassword={props.handlePassword}
+  />
+</div>
+  );
+
+  const oppForm = () => (
+    <form className="form" onSubmit={props.addOpp}>
+      <BasicInfo
+        handleCompany={props.handleCompany}
+        company={props.company}
+        handleContact={props.handleContact}
+        contact={props.contact}
+        handleBusinessIssue={props.handleBusinessIssue}
+        businessIssue={props.businessIssue}
+        handleAnxietyQ={props.handleAnxietyQ}
+        anxietyQ={props.anxietyQ}
+        labelStyle={labelStyle}
+      />
+      <MainInput
+        title="main"
+        handleProblem={props.handleProblem}
+        problem={props.problem}
+        handleSolution={props.handleSolution}
+        solution={props.solution}
+        handleValue={props.handleValue}
+        value={props.value}
+        handlePlan={props.handlePlan}
+        plan={props.plan}
+        handlePower={props.handlePower}
+        power={props.power}
+        labelStyle={labelStyle}
+      />
+      <Button variant="contained" type="submit" className="submit-btn">
+        submit
+      </Button>
+    </form>
+  );
+
+  const entryList = () => {
+    return (
+      <>
+        {props.opps === null && <h1>no current oppotunities</h1>}
+        {props.opps !== null &&
+          props.opps.map((opp) => <Entries key={opp.id} opp={opp} />)}
+      </>
+    );
+  };
+
+  console.log(props.user);
 
   return (
-    <>
-      <form className="form" onSubmit={props.addOpp}>
-        <BasicInfo
-          handleCompany={props.handleCompany}
-          company={props.company}
-          handleContact={props.handleContact}
-          contact={props.contact}
-          handleBusinessIssue={props.handleBusinessIssue}
-          businessIssue={props.businessIssue}
-          handleAnxietyQ={props.handleAnxietyQ}
-          anxietyQ={props.anxietyQ}
-          labelStyle={labelStyle}
-        />
-        <MainInput
-          title="main"
-          handleProblem={props.handleProblem}
-          problem={props.problem}
-          handleSolution={props.handleSolution}
-          solution={props.solution}
-          handleValue={props.handleValue}
-          value={props.value}
-          handlePlan={props.handlePlan}
-          plan={props.plan}
-          handlePower={props.handlePower}
-          power={props.power}
-          labelStyle={labelStyle}
-        />
-        <Button variant="contained" type="submit" className="submit-btn">
-          submit
-        </Button>
-      </form>
-      {props.opps === null && (
-        <h1>no current oppotunities</h1>
-      )}
-      {props.opps !== null && 
-      props.opps.map((opp) => (
-              <Entries key={opp.id} opp={opp} />
-            ))}
-    </>
+    <div>
+      {props.user === null && loginForm()}
+      {props.user !== null && oppForm()}
+      {props.user !== null && entryList()}
+    </div>
   );
 };
 

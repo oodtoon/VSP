@@ -194,5 +194,11 @@ header.header {
   display: flex
 }
 
+.login-label {
+  width: 25%;
+}
 
+.login-field {
+  width: 100%
+}
 
