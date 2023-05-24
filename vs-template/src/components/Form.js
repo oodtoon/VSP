@@ -217,19 +217,19 @@ const Form = (props) => {
   };
 
   const loginForm = () => (
-<div>
-  <h1>Welcome to the Value Selling Tracker</h1>
-  <h1>Please sign in to get started!</h1>
-  <Login
-    username={props.username}
-    setUsername={props.setUsername}
-    password={props.password}
-    setPassword={props.setPassword}
-    handleLogin={props.handleLogin}
-    handleUsername={props.handleUsername}
-    handlePassword={props.handlePassword}
-  />
-</div>
+    <div>
+      <h1>Welcome to the Value Selling Tracker</h1>
+      <h1>Please sign in to get started!</h1>
+      <Login
+        username={props.username}
+        setUsername={props.setUsername}
+        password={props.password}
+        setPassword={props.setPassword}
+        handleLogin={props.handleLogin}
+        handleUsername={props.handleUsername}
+        handlePassword={props.handlePassword}
+      />
+    </div>
   );
 
   const oppForm = () => (
@@ -265,17 +265,26 @@ const Form = (props) => {
     </form>
   );
 
+
+   const userOpps = props.user === null ? ["please log in"] : props.opps.filter(
+      (opp) => opp.user.username === props.user.username)
+      
+
   const entryList = () => {
     return (
       <>
-        {props.opps === null && <h1>no current oppotunities</h1>}
-        {props.opps !== null &&
-          props.opps.map((opp) => <Entries key={opp.id} opp={opp} />)}
+        {userOpps.length === 0 && <h1>no current oppotunities</h1>}
+        {userOpps !== null &&
+          userOpps.map((opp) => (
+            <Entries
+              key={opp.id}
+              opp={opp}
+              handleDelete={() => props.handleDelete(opp.company, opp.id)}
+            />
+          ))}
       </>
     );
   };
-
-  console.log(props.user);
 
   return (
     <div>

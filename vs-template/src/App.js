@@ -160,7 +160,7 @@ function App() {
     };
 
     oppService.create(oppObject).then((returnedOpp) => {
-      setOpps(opps.concat(returnedOpp));
+      setOpps(opps.concat({ ...returnedOpp, user: { id: user.id, username: user.username }}));
     });
     setCompany("");
     setContact("");
@@ -187,12 +187,10 @@ function App() {
 
   const handleUsername = (event) => {
     setUsername(event.target.value);
-    console.log(event.target.value);
   };
 
   const handlePassword = (event) => {
     setPassword(event.target.value);
-    console.log(event.target.value);
   };
 
   const handleLogin = async (event) => {
@@ -260,6 +258,7 @@ function App() {
                     opps={opps}
                     setOpps={setOpps}
                     isDarkMode={isDarkMode}
+                    handleDelete={handleDelete}
                     username={username}
                     setUsername={setUsername}
                     handleUsername={handleUsername}
@@ -286,7 +285,7 @@ function App() {
                 path="/tasks"
                 element={opps.length !== 0 && <TimeLine opps={opps} user={user}/>}
               />
-              <Route path="gameplan" element={<GamePlan user={user}/>} />
+              <Route path="gameplan" element={opps.length !==0 && <GamePlan user={user} opps={opps}/>} />
               <Route path="createaccount" element={<CreateAccount user={user}/>} />
               <Route path="forgotpassword" element={<ForgotPassword user={user}/>} />
             </Routes>

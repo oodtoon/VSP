@@ -24,7 +24,6 @@ import DoneIcon from "@mui/icons-material/Done";
 import "./Timelines.css";
 import { serializeDayJsDate } from "../../utils/serialize";
 
-
 const serializeTimeline = (tasksArray) => {
   return tasksArray
     .map((task) => {
@@ -112,7 +111,6 @@ const TimeLineList = ({ task, handleTaskDelete }) => {
     <TableRow>
       <TableCell align="left" sx={{ width: 500 }}>
         <div style={timelineStyle}>
-          {/*<TaskEdit text={task.task} task={task} />*/}
           <InLineEdit text={task.task} keyToEdit={"task"} obj={task} />
         </div>
       </TableCell>
@@ -144,7 +142,12 @@ const TimeLine = (props) => {
   const MONTH = nowDate.getMonth() + 1;
   const YEAR = nowDate.getFullYear();
 
-  const [opportunity, setOpportunity] = useState(props.opps[0]);
+  const userOpps =
+    props.user === null
+      ? ["please log in", "now"]
+      : props.opps.filter((opp) => opp.user.username === props.user.username);
+
+  const [opportunity, setOpportunity] = useState(userOpps[0]);
   const [tasks, setTasks] = useState([]);
   const [task, setNewTask] = useState("");
   const [date, setDate] = useState(dayjs(`${MONTH}-${DAY}-${YEAR}`));
@@ -200,18 +203,22 @@ const TimeLine = (props) => {
   };
 
   useEffect(() => {
-    setOpportunityHelper(opportunity.id);
+    if (props.user) {
+      setOpportunityHelper(opportunity.id);
+    }  
   }, [tasks]);
 
   const handleCopy = (event) => {
     navigator.clipboard.writeText(serializeTimeline(opportunity.tasks));
   };
 
-  opportunity.tasks.sort((a, b) => a.date - b.date);
+  if (props.user) {
+    opportunity.tasks.sort((a, b) => a.date - b.date);
+  }
 
   return (
     <>
-      {props.user === null && (<PleaseLogIn info="timeline" />)}
+      {props.user === null && <PleaseLogIn info="timeline" />}
       {props.user !== null && (
         <div>
           <h1>Create your sales timeline</h1>
@@ -225,8 +232,8 @@ const TimeLine = (props) => {
               onChange={(event) => setOpportunityHelper(event.target.value)}
               value={opportunity.id}
             >
-              {props.opps ? (
-                props.opps.map((opp) => (
+              {userOpps ? (
+                userOpps.map((opp) => (
                   <MenuItem key={opp.id} value={opp.id}>
                     {opp.company}
                   </MenuItem>

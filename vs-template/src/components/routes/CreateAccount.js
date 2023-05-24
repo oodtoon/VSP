@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Navigate } from "react-router-dom"
 import { Button, TextField, useTheme } from "@mui/material";
 import { getCssPropertyValue } from "../../utils/style";
 import usersService from "../../services/users";
@@ -16,6 +17,7 @@ const CreateAccount = (props) => {
   const [newUser, setNewUser] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isNewUser, setIsNewUser] = useState(false)
 
   const handleNewUser = (event) => {
     setNewUser(event.target.value);
@@ -40,14 +42,23 @@ const CreateAccount = (props) => {
     
         usersService.createUser(userObj)
         console.log('created')
+        setNewUser('')
+        setNewPassword('')
+        setConfirmPassword('')
+        setIsNewUser(!isNewUser)
     } else {
         console.log("passwords don't match")
+        setNewPassword('')
+        setConfirmPassword('')
     }
-    setNewUser('')
-    setNewPassword('')
-    setConfirmPassword('')
 
   };
+
+  if (isNewUser) {
+    return (
+        <Navigate to="/"/>
+    )
+  }
 
   return (
     <>

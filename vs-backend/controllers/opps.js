@@ -75,7 +75,7 @@ oppsRouter.post("/", async (request, response) => {
     power: body.power,
     plan: body.plan,
     date: new Date(),
-    user: user.id,
+    user: user.id
   });
 
   if (opp.company) {
