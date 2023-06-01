@@ -77,13 +77,13 @@ function App() {
   }, [isDarkMode]);
 
   useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedVSPappUser')
+    const loggedUserJSON = window.localStorage.getItem("loggedVSPappUser");
     if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setUser(user)
-      oppService.setToken(user.token)
+      const user = JSON.parse(loggedUserJSON);
+      setUser(user);
+      oppService.setToken(user.token);
     }
-  }, [])
+  }, []);
 
   const [opps, setOpps] = useState([]);
 
@@ -108,6 +108,8 @@ function App() {
       setOpps(initialOpps);
     });
   }, []);
+
+
 
   const handlePlan = (event) => {
     setPlan(event.target.value);
@@ -157,10 +159,16 @@ function App() {
       value: value,
       power: power,
       plan: plan,
+      gamePlan: "",
     };
 
     oppService.create(oppObject).then((returnedOpp) => {
-      setOpps(opps.concat({ ...returnedOpp, user: { id: user.id, username: user.username }}));
+      setOpps(
+        opps.concat({
+          ...returnedOpp,
+          user: { id: user.id, username: user.username },
+        })
+      );
     });
     setCompany("");
     setContact("");
@@ -215,8 +223,8 @@ function App() {
   };
 
   const handleLogout = () => {
-    window.localStorage.removeItem('loggedVSPappUser')
-    setUser(null)
+    window.localStorage.removeItem("loggedVSPappUser");
+    setUser(null);
   };
 
   return (
@@ -283,11 +291,24 @@ function App() {
               />
               <Route
                 path="/tasks"
-                element={opps.length !== 0 && <TimeLine opps={opps} user={user}/>}
+                element={
+                  opps.length !== 0 && <TimeLine opps={opps} user={user} />
+                }
               />
-              <Route path="gameplan" element={opps.length !==0 && <GamePlan user={user} opps={opps}/>} />
-              <Route path="createaccount" element={<CreateAccount user={user}/>} />
-              <Route path="forgotpassword" element={<ForgotPassword user={user}/>} />
+              <Route
+                path="gameplan"
+                element={
+                  opps.length !== 0 && <GamePlan user={user} opps={opps}/>
+                }
+              />
+              <Route
+                path="createaccount"
+                element={<CreateAccount user={user} />}
+              />
+              <Route
+                path="forgotpassword"
+                element={<ForgotPassword user={user} />}
+              />
             </Routes>
           </Container>
         </Router>

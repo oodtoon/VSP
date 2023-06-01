@@ -1,15 +1,7 @@
 import OpportunitySelector from "../OpportunitySelector";
 import PleaseLogIn from "../PleaseLogIn";
 
-const { TextField } = require("@mui/material");
-
 const GamePlan = (props) => {
-  console.log("opps", props.opps);
-
-  const dummyOpp = {
-    company: "no opps loaded",
-    id: 38,
-  };
 
   return (
     <>
@@ -18,19 +10,8 @@ const GamePlan = (props) => {
         <div>
           <h1>Game Plan</h1>
 
-          <OpportunitySelector opps={props.opps} user={props.user} />
+          <OpportunitySelector opps={props.opps} user={props.user}/>
 
-          <TextField
-            size="small"
-            type="text"
-            variant="standard"
-            placeholder="Game Plan"
-            className="GamePlan-form"
-            label="Game Plan"
-            multiline
-            minRows={15}
-            fullWidth
-          />
         </div>
       )}
     </>

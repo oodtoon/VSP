@@ -31,6 +31,11 @@ const getAll = () => {
     );
 };
 
+const getOpp = async (id) => {
+  const response = await axios.get(`${baseUrl}/${id}`);
+  return response.data;
+}
+
 const create = async (newObject) => {
   const config = {
     headers: { Authorization: token }
@@ -41,6 +46,11 @@ const create = async (newObject) => {
 };
 
 const update = async (newObject, id) => {
+  const response = await axios.patch(`${baseUrl}/${id}`, newObject)
+  return response.data
+}
+
+const updateFullOpp = async (newObject, id) => {
   const response = await axios.patch(`${baseUrl}/${id}`, newObject)
   return response.data
 }
@@ -77,5 +87,7 @@ export default {
   createTask,
   removeOpp,
   removeTask,
-  setToken
+  setToken,
+  updateFullOpp,
+  getOpp
 };

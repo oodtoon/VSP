@@ -10,6 +10,7 @@ const oppSchema = new mongoose.Schema({
   value: String,
   power: String,
   plan: String,
+  gamePlan: String,
   date: String,
   tasks: [
     {

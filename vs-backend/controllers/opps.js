@@ -52,11 +52,38 @@ oppsRouter.patch("/:id", async (request, response) => {
   response.status(200).json(updatedOpp);
 });
 
+oppsRouter.put("/:id", async (request, response, next) => {
+  const body = request.body
+
+  const opp = {
+    company: body.company,
+    contact: body.contact,
+    businessIssue: body.businessIssue,
+    anxietyQ: body.anxietyQ,
+    problem: body.problem,
+    solution: body.solution,
+    value: body.value,
+    power: body.power,
+    plan: body.plan,
+    gamePlan: body.gamePlan,
+    date: body.date,
+    tasks: body.tasks,
+    user: body.user
+  }
+
+  Opportunity.findByIdAndUpdate(request.params.id, opp, { new: true })
+    .then(updatedOpp => {
+      response.json(updatedOpp)
+    })
+    .catch(error => next(error))
+})
+
 oppsRouter.post("/", async (request, response) => {
   const body = request.body;
 
   const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET);
-  console.log("decode", decodedToken)
+  
+  console.log(body)
  
   if (!decodedToken.id) {
     return response.status(400).json({ error: "token invalid" });
@@ -74,6 +101,7 @@ oppsRouter.post("/", async (request, response) => {
     value: body.value,
     power: body.power,
     plan: body.plan,
+    gamePlan: body.gamePlan,
     date: new Date(),
     user: user.id
   });

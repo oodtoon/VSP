@@ -1,8 +1,63 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { TextField, Button } from "@mui/material";
+import oppService from "../services/opps";
+
+const GamePlanForm = (props) => {
+  const text = props.opportunity.gamePlan;
+  const [gamePlan, setGamePlan] = useState(text);
+
+  const handleGamePlanChange = (event) => {
+    setGamePlan(event.target.value);
+  };
+
+  useEffect(() => {
+    oppService.getOpp(props.opportunity.id).then((returnedOpp) => {
+      setGamePlan(returnedOpp.gamePlan);
+    });
+  }, [props.opportunity]);
+
+  const addGamePlan = (event) => {
+    event.preventDefault();
+
+    const oppObj = {
+      gamePlan: gamePlan,
+    };
+
+    if (props.opportunity.gamePlan !== gamePlan) {
+      oppService.update(oppObj, props.opportunity.id).then((returnedOpp) => {
+        setGamePlan(returnedOpp.gamePlan);
+      });
+    }
+  };
+
+  return (
+    <>
+      <form onSubmit={addGamePlan}>
+        <TextField
+          size="small"
+          type="text"
+          variant="standard"
+          placeholder="Enter Game Plan"
+          className="GamePlan-form"
+          label="Game Plan"
+          onChange={handleGamePlanChange}
+          value={gamePlan}
+          multiline
+          minRows={15}
+          fullWidth
+        />
+        <Button variant="contained" type="submit" className="submit-btn">
+          Set Game Plan
+        </Button>
+      </form>
+    </>
+  );
+};
 
 const OpportunitySelector = (props) => {
   const userOpps =
@@ -61,6 +116,7 @@ const OpportunitySelector = (props) => {
               )}
             </Select>
           </FormControl>
+          <GamePlanForm opportunity={opportunity} />
         </div>
       )}
     </div>
