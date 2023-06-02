@@ -16,21 +16,28 @@ const GamePlanForm = (props) => {
   };
 
   useEffect(() => {
-    oppService.getOpp(props.opportunity.id).then((returnedOpp) => {
-      setGamePlan(returnedOpp.gamePlan);
-    });
+    setGamePlan(text);
   }, [props.opportunity]);
 
   const addGamePlan = (event) => {
     event.preventDefault();
 
+    handleBlur();
+  };
+
+  console.log(props.opps);
+
+  const handleBlur = () => {
     const oppObj = {
       gamePlan: gamePlan,
     };
 
     if (props.opportunity.gamePlan !== gamePlan) {
       oppService.update(oppObj, props.opportunity.id).then((returnedOpp) => {
-        setGamePlan(returnedOpp.gamePlan);
+        const updatedOpps = props.opps.map((opp) =>
+          opp.id === returnedOpp.id ? { ...opp, gamePlan: gamePlan } : opp
+        );
+        props.setOpps(updatedOpps);
       });
     }
   };
@@ -45,13 +52,19 @@ const GamePlanForm = (props) => {
           placeholder="Enter Game Plan"
           className="GamePlan-form"
           label="Game Plan"
+          onBlur={handleBlur}
           onChange={handleGamePlanChange}
           value={gamePlan}
           multiline
           minRows={15}
           fullWidth
         />
-        <Button variant="contained" type="submit" className="submit-btn">
+        <Button
+          variant="contained"
+          type="submit"
+          className="submit-btn"
+          sx={{ mt: "20px" }}
+        >
           Set Game Plan
         </Button>
       </form>
@@ -116,7 +129,11 @@ const OpportunitySelector = (props) => {
               )}
             </Select>
           </FormControl>
-          <GamePlanForm opportunity={opportunity} />
+          <GamePlanForm
+            opportunity={opportunity}
+            opps={props.opps}
+            setOpps={props.setOpps}
+          />
         </div>
       )}
     </div>

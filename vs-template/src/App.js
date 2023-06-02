@@ -298,7 +298,7 @@ function App() {
               <Route
                 path="gameplan"
                 element={
-                  opps.length !== 0 && <GamePlan user={user} opps={opps}/>
+                  opps.length !== 0 && <GamePlan user={user} opps={opps} setOpps={setOpps}/>
                 }
               />
               <Route

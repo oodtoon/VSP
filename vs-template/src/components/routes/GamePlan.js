@@ -10,7 +10,7 @@ const GamePlan = (props) => {
         <div>
           <h1>Game Plan</h1>
 
-          <OpportunitySelector opps={props.opps} user={props.user}/>
+          <OpportunitySelector opps={props.opps} user={props.user} setOpps={props.setOpps}/>
 
         </div>
       )}

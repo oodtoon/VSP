@@ -1,4 +1,5 @@
 .env
+build
 mongo.js
 login.rest
 get_all_opps.rest
