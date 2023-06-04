@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
         unique: true
     },
     passwordHash: String,
+    email: String,
     opps: [ {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Opportunity'

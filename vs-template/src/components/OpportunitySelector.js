@@ -76,7 +76,7 @@ const OpportunitySelector = (props) => {
   const userOpps =
     props.user === null
       ? [{ company: "No Opportunities Loaded", id: "69" }, "now"]
-      : props.opps.filter((opp) => opp.user.username === props.user.username);
+      : props.opps.filter((opp) => opp.user.username === props.user.username && opp.status === "Open");
 
   const [opportunity, setOpportunity] = useState(userOpps[0]);
 

@@ -3,6 +3,8 @@ import Entries from "./Entries";
 import "../App.css";
 import { getCssPropertyValue } from "../utils/style";
 import Login from "./Login";
+import { Container } from "@mui/material";
+import Notification from "./Notification";
 
 const inputStyle = {
   backgroundColor: "white",
@@ -34,7 +36,7 @@ const MainInput = (props) => {
 
   return (
     <div
-      className="basic-label"
+      className="main-fieldset"
       style={{
         ...mainStyle,
         backgroundColor:
@@ -144,6 +146,7 @@ const BasicInfo = (props) => {
 
   return (
     <fieldset
+      className="basic-fieldset"
       style={{
         ...basicStyle,
         backgroundColor:
@@ -218,17 +221,24 @@ const Form = (props) => {
 
   const loginForm = () => (
     <div>
-      <h1>Welcome to the Value Selling Tracker</h1>
-      <h1>Please sign in to get started!</h1>
-      <Login
-        username={props.username}
-        setUsername={props.setUsername}
-        password={props.password}
-        setPassword={props.setPassword}
-        handleLogin={props.handleLogin}
-        handleUsername={props.handleUsername}
-        handlePassword={props.handlePassword}
-      />
+      <h1 className="login-msg">
+        Welcome to the Value Selling Tracker! {<br />} Please sign in to get
+        started!
+      </h1>
+      <Container maxWidth="sm">
+        <Login
+          username={props.username}
+          setUsername={props.setUsername}
+          password={props.password}
+          setPassword={props.setPassword}
+          handleLogin={props.handleLogin}
+          handleUsername={props.handleUsername}
+          handlePassword={props.handlePassword}
+          notification={props.notification}
+          notificationOpen={props.notificationOpen}
+          notificationType={props.notificationType}
+        />
+      </Container>
     </div>
   );
 
@@ -265,10 +275,13 @@ const Form = (props) => {
     </form>
   );
 
-
-   const userOpps = props.user === null ? ["please log in"] : props.opps.filter(
-      (opp) => opp.user.username === props.user.username)
-      
+  const userOpps =
+    props.user === null
+      ? ["please log in"]
+      : props.opps.filter(
+          (opp) =>
+            opp.user.username === props.user.username && opp.status === "Open"
+        );
 
   const entryList = () => {
     return (
@@ -288,6 +301,12 @@ const Form = (props) => {
 
   return (
     <div>
+      <Notification
+        notification={props.notification}
+        notificationOpen={props.notificationOpen}
+        notificationType={props.notificationType}
+        handleClose={props.handleClose}
+      />
       {props.user === null && loginForm()}
       {props.user !== null && oppForm()}
       {props.user !== null && entryList()}

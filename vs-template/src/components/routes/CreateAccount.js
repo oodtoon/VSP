@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom";
 import { Button, TextField, useTheme } from "@mui/material";
 import { getCssPropertyValue } from "../../utils/style";
 import usersService from "../../services/users";
 import "../../App.css";
+import Notification from "../Notification";
+import { Container } from "@mui/material";
 
 const createStyle = {
   textAlign: "left",
@@ -15,9 +17,13 @@ const CreateAccount = (props) => {
   const theme = useTheme();
 
   const [newUser, setNewUser] = useState("");
+
+  const [email, setEmail] = useState("")
+
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [isNewUser, setIsNewUser] = useState(false)
+
+  const [isNewUser, setIsNewUser] = useState(false);
 
   const handleNewUser = (event) => {
     setNewUser(event.target.value);
@@ -31,95 +37,121 @@ const CreateAccount = (props) => {
     setConfirmPassword(event.target.value);
   };
 
+  const handleEmail = (event) => {
+    setEmail(event.target.value)
+  }
+
   const handleCreateAccount = (event) => {
     event.preventDefault();
-    
-    if (newPassword === confirmPassword) {
-        const userObj = {
-            username: newUser,
-            password: newPassword
-        }
-    
-        usersService.createUser(userObj)
-        console.log('created')
-        setNewUser('')
-        setNewPassword('')
-        setConfirmPassword('')
-        setIsNewUser(!isNewUser)
-    } else {
-        console.log("passwords don't match")
-        setNewPassword('')
-        setConfirmPassword('')
-    }
 
+    if (newPassword === confirmPassword) {
+      const userObj = {
+        username: newUser,
+        email: email,
+        password: newPassword,
+      };
+
+      usersService.createUser(userObj);
+      console.log("created");
+      setNewUser("");
+      setNewPassword("");
+      setConfirmPassword("");
+      setIsNewUser(!isNewUser);
+      props.setNotificationOpen(true);
+      props.setNotification("Account Created! Login to start using the app");
+      props.setNotificationType("success");
+    } else {
+      setNewPassword("");
+      setConfirmPassword("");
+      props.setNotificationOpen(true);
+      props.setNotificationType("error");
+      props.setNotification("Passwords don't match");
+    }
   };
 
   if (isNewUser) {
-    return (
-        <Navigate to="/"/>
-    )
+    return <Navigate to="/" />;
   }
 
   return (
     <>
       {props.user === null && (
         <div>
-          <h1>Create Account</h1>
-          <fieldset
-            className="create-label"
-            style={{
-              ...createStyle,
-              backgroundColor:
-                theme.palette.mode === "dark"
-                  ? getCssPropertyValue("--primary-100")
-                  : getCssPropertyValue("--secondary-200"),
-            }}
-          >
-            <form onSubmit={handleCreateAccount}>
-              <label>
+          <h1 className="create-header">Create Account</h1>
+
+          <Container maxWidth="sm">
+            <fieldset
+              className="create-label"
+              style={{
+                ...createStyle,
+                backgroundColor:
+                  theme.palette.mode === "dark"
+                    ? getCssPropertyValue("--primary-100")
+                    : getCssPropertyValue("--secondary-200"),
+              }}
+            >
+              <form onSubmit={handleCreateAccount} className="create-form">
                 <TextField
                   size="small"
                   type="text"
                   placeholder="Username"
-                  className="login-form"
+                  className="username"
                   onChange={handleNewUser}
                   value={newUser}
                   label="Username"
                 />
-              </label>
-              <label>
+
+                <TextField
+                  size="small"
+                  type="text"
+                  placeholder="Email"
+                  className="email"
+                  onChange={handleEmail}
+                  value={email}
+                  label="Email"
+                />
+
                 <TextField
                   size="small"
                   type="password"
                   placeholder="Password"
                   onChange={handleNewPassword}
                   value={newPassword}
-                  className="login-form"
+                  className="password"
                   label="Password"
                 />
-              </label>
 
-              <label>
                 <TextField
                   size="small"
                   type="password"
                   placeholder="Re-enter Password"
-                  className="login-form"
+                  className="password2"
                   onChange={handleConfirmPassword}
                   value={confirmPassword}
                   label="Re-enter Password"
                 />
-              </label>
-              <Button type="submit" variant="contained">
-                Create Account
-              </Button>
-            </form>
-          </fieldset>
+
+                <Button
+                  type="submit"
+                  variant="contained"
+                  className="create-btn"
+                >
+                  Create Account
+                </Button>
+              </form>
+            </fieldset>
+          </Container>
         </div>
       )}
       {props.user !== null && (
         <div>{props.user.username} already logged in</div>
       )}
+      <Notification
+        notification={props.notification}
+        notificationOpen={props.notificationOpen}
+        notificationType={props.notificationType}
+        handleClose={props.handleClose}
+      />
     </>
   );
 };

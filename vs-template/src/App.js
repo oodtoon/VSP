@@ -103,13 +103,16 @@ function App() {
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
 
+  const [notification, setNotification] = useState("");
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [notificationType, setNotificationType] = useState(null);
+
+
   useEffect(() => {
     oppService.getAll().then((initialOpps) => {
       setOpps(initialOpps);
     });
   }, []);
-
-
 
   const handlePlan = (event) => {
     setPlan(event.target.value);
@@ -160,6 +163,7 @@ function App() {
       power: power,
       plan: plan,
       gamePlan: "",
+      status: "Open",
     };
 
     oppService.create(oppObject).then((returnedOpp) => {
@@ -169,7 +173,11 @@ function App() {
           user: { id: user.id, username: user.username },
         })
       );
+      console.log(returnedOpp);
     });
+    setNotificationType("success");
+    setNotification("New opportunity created!");
+    setNotificationOpen(true);
     setCompany("");
     setContact("");
     setBusinessIssue("");
@@ -216,8 +224,15 @@ function App() {
       setUser(user);
       setUsername("");
       setPassword("");
+      setNotificationType("success");
+      setNotification("You are now logged in!");
+      setNotificationOpen(true);
       console.log("logged in with", username);
     } catch (exception) {
+      setPassword("");
+      setNotificationType("error");
+      setNotification("Incorrect username or password");
+      setNotificationOpen(true);
       console.log("wrong info", exception);
     }
   };
@@ -226,6 +241,12 @@ function App() {
     window.localStorage.removeItem("loggedVSPappUser");
     setUser(null);
   };
+
+  const handleClose = () => {
+      setNotificationOpen(false);
+  }
+
+
 
   return (
     <div>
@@ -275,6 +296,12 @@ function App() {
                     handlePassword={handlePassword}
                     handleLogin={handleLogin}
                     user={user}
+                    notification={notification}
+                    notificationOpen={notificationOpen}
+                    notificationType={notificationType}
+                    setNotificationOpen={setNotificationOpen}
+                    setNotificationType={setNotificationType}
+                    handleClose={handleClose}
                   />
                 }
               />
@@ -286,6 +313,13 @@ function App() {
                     setOpps={setOpps}
                     handleDelete={handleDelete}
                     user={user}
+                    notification={notification}
+                    notificationOpen={notificationOpen}
+                    notificationType={notificationType}
+                    handleClose={handleClose}
+                    setNotification={setNotification}
+                    setNotificationOpen={setNotificationOpen}
+                    setNotificationType={setNotificationType}
                   />
                 }
               />
@@ -298,12 +332,27 @@ function App() {
               <Route
                 path="gameplan"
                 element={
-                  opps.length !== 0 && <GamePlan user={user} opps={opps} setOpps={setOpps}/>
+                  opps.length !== 0 && (
+                    <GamePlan user={user} opps={opps} setOpps={setOpps} />
+                  )
                 }
               />
               <Route
                 path="createaccount"
-                element={<CreateAccount user={user} />}
+                element={
+                  <CreateAccount
+                    user={user}
+                    notification={notification}
+                    notificationOpen={notificationOpen}
+                    notificationType={notificationType}
+                    setNotification={setNotification}
+                    setNotificationOpen={setNotificationOpen}
+                    setNotificationType={setNotificationType}
+                    handleClose={handleClose}
+
+         
+                  />
+                }
               />
               <Route
                 path="forgotpassword"

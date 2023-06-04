@@ -51,7 +51,7 @@ const update = async (newObject, id) => {
 }
 
 const updateFullOpp = async (newObject, id) => {
-  const response = await axios.patch(`${baseUrl}/${id}`, newObject)
+  const response = await axios.put(`${baseUrl}/${id}`, newObject)
   return response.data
 }
 

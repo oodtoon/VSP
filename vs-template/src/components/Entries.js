@@ -2,13 +2,24 @@ import { useState } from "react";
 import { Button, useTheme } from "@mui/material";
 import ToggleCopy from "./ToggleCopy";
 import InLineEdit from "./InLineEdit";
+import StatusSelect from "./StatusSelect";
 import "../App.css";
 
 const EntryBtn = {
   color: "#000",
 };
 
-const EntryInfo = ({ opp, handleDelete }) => {
+const EntryInfo = ({
+  opp,
+  handleDelete,
+  notification,
+  notificationOpen,
+  notificationType,
+  handleClose,
+  setNotification,
+  setNotificationOpen,
+  setNotificationType
+}) => {
   const formatter = () => {
     const oppFirstHalf = [];
     const oppSecondHalf = [];
@@ -165,13 +176,28 @@ const EntryInfo = ({ opp, handleDelete }) => {
           Plan: <InLineEdit text={opp.plan} keyToEdit={"plan"} obj={opp} />
         </label>
       </fieldset>
-      <Button variant="contained" onClick={handleCopy} sx={{ mb: "50px" }}>
+      <StatusSelect
+        oppStatus={opp.status}
+        opp={opp}
+        notification={notification}
+        notificationOpen={notificationOpen}
+        notificationType={notificationType}
+        handleClose={handleClose}
+        setNotification={setNotification}
+        setNotificationOpen={setNotificationOpen}
+        setNotificationType={setNotificationType}
+      />
+      <Button
+        variant="contained"
+        onClick={handleCopy}
+        sx={{ mt: "30px", mb: "50px" }}
+      >
         Copy Opportunity to Clipboard
       </Button>
       <Button
         variant="contained"
         onClick={handleDelete}
-        sx={{ mb: "50px", ml: "25px" }}
+        sx={{ mt: "30px", mb: "50px", ml: "25px" }}
       >
         Delete
       </Button>
@@ -179,7 +205,17 @@ const EntryInfo = ({ opp, handleDelete }) => {
   );
 };
 
-const Entries = ({ opp, handleDelete }) => {
+const Entries = ({
+  opp,
+  handleDelete,
+  notification,
+  notificationOpen,
+  notificationType,
+  handleClose,
+  setNotification,
+  setNotificationOpen,
+  setNotificationType
+}) => {
   const [showAll, setShowAll] = useState(false);
   const theme = useTheme();
 
@@ -198,7 +234,19 @@ const Entries = ({ opp, handleDelete }) => {
       >
         {opp.company}
       </button>
-      {showAll && <EntryInfo opp={opp} handleDelete={handleDelete} />}
+      {showAll && (
+        <EntryInfo
+          opp={opp}
+          handleDelete={handleDelete}
+          notification={notification}
+          notificationOpen={notificationOpen}
+          notificationType={notificationType}
+          handleClose={handleClose}
+          setNotification={setNotification}
+          setNotificationOpen={setNotificationOpen}
+          setNotificationType={setNotificationType}
+        />
+      )}
     </div>
   );
 };

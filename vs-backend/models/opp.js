@@ -12,6 +12,7 @@ const oppSchema = new mongoose.Schema({
   plan: String,
   gamePlan: String,
   date: String,
+  status: String,
   tasks: [
     {
       type: mongoose.Schema.Types.ObjectId,

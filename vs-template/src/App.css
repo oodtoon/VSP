@@ -7,8 +7,6 @@
   --secondary-300: rgb(25, 47, 132);
 }
 
-
-
 fieldset {
   border: 0;
   padding: 0.5em;
@@ -150,7 +148,7 @@ nav a.active {
 }
 
 .entry-details {
-  padding-bottom: 50px;
+  padding-bottom: 30px;
 }
 
 .entry-details label {
@@ -191,17 +189,54 @@ header.header {
 }
 
 .entry-line {
-  display: flex
-}
-
-.login-label {
-  width: 25%;
-}
-
-.login-field {
-  width: 100%
+  display: flex;
 }
 
 .nav-span {
   margin-left: 10px;
+}
+
+.login-msg {
+  display: grid;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.create-form {
+  display: grid;
+  margin: auto;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "username email" "password ." "password2 ." "create-btn .";
+  gap: .5em;
+}
+
+.username {
+  grid-area: username;
+
+}
+
+.email {
+  grid-area: email;
+}
+
+.password {
+  grid-area: password;
+}
+
+.password2 {
+  grid-area: password2;
+}
+
+.create-btn {
+  grid-area: create-btn;
+}
+
+.create-header {
+  display: grid;
+  margin: auto;
+  justify-content: center;
+  margin-bottom: 25px;
 }

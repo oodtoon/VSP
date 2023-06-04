@@ -68,7 +68,8 @@ oppsRouter.put("/:id", async (request, response, next) => {
     gamePlan: body.gamePlan,
     date: body.date,
     tasks: body.tasks,
-    user: body.user
+    user: body.user,
+    status: body.status
   }
 
   Opportunity.findByIdAndUpdate(request.params.id, opp, { new: true })
@@ -103,7 +104,8 @@ oppsRouter.post("/", async (request, response) => {
     plan: body.plan,
     gamePlan: body.gamePlan,
     date: new Date(),
-    user: user.id
+    user: user.id,
+    status: body.status
   });
 
   if (opp.company) {

@@ -145,7 +145,7 @@ const TimeLine = (props) => {
   const userOpps =
     props.user === null
       ? ["please log in", "now"]
-      : props.opps.filter((opp) => opp.user.username === props.user.username);
+      : props.opps.filter((opp) => opp.user.username === props.user.username && opp.status === "Open");
 
   const [opportunity, setOpportunity] = useState(userOpps[0]);
   const [tasks, setTasks] = useState([]);
