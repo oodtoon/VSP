@@ -13,7 +13,7 @@ const ToggleCopy = (props) => {
   
     return (
       <>
-        <Switch checked={isCopyable} onClick={handleCopyToggle}></Switch>
+        <Switch checked={isCopyable} onClick={handleCopyToggle} sx={{ mt: "5px"}}></Switch>
       </>
     );
   };

@@ -107,7 +107,6 @@ function App() {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const [notificationType, setNotificationType] = useState(null);
 
-
   useEffect(() => {
     oppService.getAll().then((initialOpps) => {
       setOpps(initialOpps);
@@ -243,10 +242,8 @@ function App() {
   };
 
   const handleClose = () => {
-      setNotificationOpen(false);
-  }
-
-
+    setNotificationOpen(false);
+  };
 
   return (
     <div>
@@ -259,7 +256,7 @@ function App() {
             user={user}
             handleLogout={handleLogout}
           />
-          <Container>
+         
             <Routes>
               <Route
                 path="/"
@@ -349,8 +346,6 @@ function App() {
                     setNotificationOpen={setNotificationOpen}
                     setNotificationType={setNotificationType}
                     handleClose={handleClose}
-
-         
                   />
                 }
               />
@@ -359,7 +354,7 @@ function App() {
                 element={<ForgotPassword user={user} />}
               />
             </Routes>
-          </Container>
+         
         </Router>
       </ThemeProvider>
     </div>

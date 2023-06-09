@@ -27,7 +27,7 @@ const Nav = (props) => {
 
   const noLinks = () => (
     <nav>
-      <NavLink to="/">Form</NavLink>
+      <NavLink to="/">Home</NavLink>
       <span className="nav-span">Log In To Access Links</span>
     </nav>
   );

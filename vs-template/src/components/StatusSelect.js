@@ -9,10 +9,6 @@ import oppService from "../services/opps";
 const StatusSelect = ({
   oppStatus,
   opp,
-  notification,
-  notificationOpen,
-  notificationType,
-  handleClose,
   setNotification,
   setNotificationOpen,
   setNotificationType,
@@ -32,15 +28,14 @@ const StatusSelect = ({
 
     if (event.target.value === "Won") {
       setNotification("Opporutinty Won! Congrats!");
-      setNotificationOpen(true)
-      setNotificationType("success")
+      setNotificationOpen(true);
+      setNotificationType("success");
     }
-    
   };
 
   return (
     <div>
-      <FormControl>
+      <FormControl sx={{ pl: "25px" }}>
         <FormLabel id="controlled-status-group">Opportunity Status:</FormLabel>
         <RadioGroup
           row

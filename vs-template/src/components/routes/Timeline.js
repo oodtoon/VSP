@@ -20,6 +20,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import DoneIcon from "@mui/icons-material/Done";
+import { Container } from "@mui/material";
 
 import "./Timelines.css";
 import { serializeDayJsDate } from "../../utils/serialize";
@@ -119,7 +120,7 @@ const TimeLineList = ({ task, handleTaskDelete }) => {
           {task.date.$M + 1}-{task.date.$D}-{task.date.$y}
         </div>
       </TableCell>
-      <TableCell></TableCell>
+      
       <TableCell>
         <Button
           style={buttonColor}
@@ -145,7 +146,10 @@ const TimeLine = (props) => {
   const userOpps =
     props.user === null
       ? ["please log in", "now"]
-      : props.opps.filter((opp) => opp.user.username === props.user.username && opp.status === "Open");
+      : props.opps.filter(
+          (opp) =>
+            opp.user.username === props.user.username && opp.status === "Open"
+        );
 
   const [opportunity, setOpportunity] = useState(userOpps[0]);
   const [tasks, setTasks] = useState([]);
@@ -205,7 +209,7 @@ const TimeLine = (props) => {
   useEffect(() => {
     if (props.user) {
       setOpportunityHelper(opportunity.id);
-    }  
+    }
   }, [tasks]);
 
   const handleCopy = (event) => {
@@ -218,89 +222,89 @@ const TimeLine = (props) => {
 
   return (
     <>
-      {props.user === null && <PleaseLogIn info="timeline" />}
-      {props.user !== null && (
-        <div>
-          <h1>Create your sales timeline</h1>
-          <FormControl sx={{ mb: 5, minWidth: 300 }}>
-            <InputLabel id="opportunities">Opportunity</InputLabel>
-
-            <Select
-              labelId="oppsId"
-              id="opps"
-              label="Opportunity"
-              onChange={(event) => setOpportunityHelper(event.target.value)}
-              value={opportunity.id}
-            >
-              {userOpps ? (
-                userOpps.map((opp) => (
-                  <MenuItem key={opp.id} value={opp.id}>
-                    {opp.company}
-                  </MenuItem>
-                ))
-              ) : (
-                <MenuItem>Create Opportunity First</MenuItem>
-              )}
-            </Select>
-          </FormControl>
-          <ObjectiveCreator
-            task={task}
-            handleTask={handleTask}
-            date={date}
-            handleDate={handleDate}
-            addTask={addTask}
-            opportunity={opportunity}
-          />
-          {props.timeline === null && <h1>Fill out your timeline now!</h1>}
-          {props.timeline !== null && (
-            <TableContainer component={Paper} sx={{ mb: "200px" }}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell sx={{ fontSize: "20px", fontWeight: "900" }}>
-                      Task:
-                    </TableCell>
-                    <TableCell
-                      sx={{ fontSize: "20px", fontWeight: "900" }}
-                      align="left"
-                    >
-                      Date Due:
-                    </TableCell>
-                    <TableCell>
-                      <Button variant="contained" onClick={handleCopy}>
-                        Copy Timeline to Clipboard
-                      </Button>
-                    </TableCell>
-                    <TableCell
-                      sx={{ fontSize: "20px", fontWeight: "900" }}
-                      align="left"
-                    >
-                      Status:
-                    </TableCell>
-                    <TableCell
-                      sx={{ fontSize: "20px", fontWeight: "900" }}
-                      align="left"
-                    >
-                      Delete:
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {opportunity.tasks.map((task) => (
-                    <TimeLineList
-                      key={task.id}
-                      task={task}
-                      handleTaskDelete={() =>
-                        handleTaskDelete(task.task, task.id, task.opp)
-                      }
-                    />
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          )}
-        </div>
-      )}
+      <Container>
+        {props.user === null && <PleaseLogIn info="timeline" />}
+        {props.user !== null && (
+          <div>
+            <h1>Create your sales timeline</h1>
+            <FormControl sx={{ mb: 5, minWidth: 300 }}>
+              <InputLabel id="opportunities">Opportunity</InputLabel>
+              <Select
+                labelId="oppsId"
+                id="opps"
+                label="Opportunity"
+                onChange={(event) => setOpportunityHelper(event.target.value)}
+                value={opportunity.id}
+              >
+                {userOpps ? (
+                  userOpps.map((opp) => (
+                    <MenuItem key={opp.id} value={opp.id}>
+                      {opp.company}
+                    </MenuItem>
+                  ))
+                ) : (
+                  <MenuItem>Create Opportunity First</MenuItem>
+                )}
+              </Select>
+            </FormControl>
+            <ObjectiveCreator
+              task={task}
+              handleTask={handleTask}
+              date={date}
+              handleDate={handleDate}
+              addTask={addTask}
+              opportunity={opportunity}
+            />
+            {props.timeline === null && <h1>Fill out your timeline now!</h1>}
+            {props.timeline !== null && (
+              <TableContainer component={Paper} sx={{ mb: "1em" }}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell sx={{ fontSize: "20px", fontWeight: "900" }}>
+                        Task:
+                      </TableCell>
+                      <TableCell
+                        sx={{ fontSize: "20px", fontWeight: "900" }}
+                        align="left"
+                      >
+                        Date Due:
+                      </TableCell>
+        
+                      <TableCell
+                        sx={{ fontSize: "20px", fontWeight: "900" }}
+                        align="left"
+                      >
+                        Status:
+                      </TableCell>
+                      <TableCell
+                        sx={{ fontSize: "20px", fontWeight: "900" }}
+                        align="left"
+                      >
+                        Delete:
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {opportunity.tasks.map((task) => (
+                      <TimeLineList
+                        key={task.id}
+                        task={task}
+                        handleTaskDelete={() =>
+                          handleTaskDelete(task.task, task.id, task.opp)
+                        }
+                      />
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
+            <Button variant="contained" onClick={handleCopy}>
+              Copy Timeline to Clipboard
+            </Button>
+          </div>
+        )}
+      </Container>
     </>
   );
 };

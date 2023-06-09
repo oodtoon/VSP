@@ -13,11 +13,6 @@ fieldset {
   margin: 10px 0px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -56,25 +51,10 @@ fieldset {
   width: 60%;
 }
 
-/*.basic-info {
-  text-align: right;
-  background-color: var(--secondary-200);
-  border-radius: 4px;
-}*/
-
 label {
   display: block;
   line-height: 48px;
 }
-
-/*.main-info {
-  display: grid;
-  grid-template: auto auto / auto auto;
-  background-color: var(--secondary-200);
-  border-radius: 4px;
-  text-align: center;
-  margin: 0 0 10px 0;
-}*/
 
 .form {
   text-align: center;
@@ -99,14 +79,7 @@ textarea::placeholder {
 .entry {
   text-align: left;
   padding-left: 40px;
-}
 
-.entry-btn {
-  font-size: x-large;
-  font-weight: 700;
-  background-color: transparent;
-  border-color: transparent;
-  cursor: pointer;
 }
 
 .submit-btn {
@@ -117,16 +90,12 @@ textarea::placeholder {
   background-color: transparent;
   color: black;
   transition: background-color 0.4s;
+  border-radius: 8px;
 }
 
 .fade:hover {
   background-color: rgb(104, 189, 104);
-}
-
-.fade:focus,
-.fade:active {
-  background-color: #008a5e;
-  transition: none;
+  border-radius: 8px;
 }
 
 .nav {
@@ -158,6 +127,7 @@ nav a.active {
   font-weight: 800;
   margin-bottom: -16px;
 }
+
 .inline-edit.hidden {
   display: none;
 }
@@ -189,7 +159,12 @@ header.header {
 }
 
 .entry-line {
-  display: flex;
+display: grid;
+grid-template-columns: 1fr 10fr;
+}
+
+.display-label {
+  align-self: start;
 }
 
 .nav-span {
@@ -210,12 +185,11 @@ header.header {
   grid-template-rows: auto;
   grid-template-columns: 1fr 2fr;
   grid-template-areas: "username email" "password ." "password2 ." "create-btn .";
-  gap: .5em;
+  gap: 0.5em;
 }
 
 .username {
   grid-area: username;
-
 }
 
 .email {
@@ -239,4 +213,88 @@ header.header {
   margin: auto;
   justify-content: center;
   margin-bottom: 25px;
+}
+
+
+.testimonial-banner {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 7em;
+  background-color: var(--secondary-100);
+  font-size: 30px;
+  color: white;
+}
+
+.numbers-banner {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  margin-top: 7em;
+  left: 0;
+  right: 0;
+  height: 10em;
+  width: 100%;
+  height: 15em;
+  background-color: var(--primary-100);
+  font-size: 30px;
+  color: var(--primary-300);
+  margin-bottom: 3em;
+}
+
+.numbers {
+  padding-top: 1em;
+}
+
+.img-grid-container {
+  display: grid;
+  grid-template-columns: 2;
+  grid-template-areas: "img text";
+  align-content: center;
+ 
+
+}
+
+.text-grid-container {
+  display: grid;
+  grid-template-columns: 2;
+  grid-template-areas: "text img";
+  align-content: center;
+  background-color: rgb(16, 162, 225);
+  margin-top: 50em;
+}
+
+.text {
+  grid-area: text;
+}
+
+.img {
+  grid-area: img;
+}
+
+.game-plan {
+  margin-bottom: 10em;
+}
+
+.login-action {
+  padding-left: .5em;
+}
+
+.demo-login {
+  margin-right: 2em;
+}
+
+.img-link:link {
+  color: white;
+}
+
+.img-link:visited {
+  color: var(--secondary-100)
+}
+
+img {
+  background-color: transparent;
 }

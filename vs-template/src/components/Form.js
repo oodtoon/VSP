@@ -1,10 +1,9 @@
-import { Button, TextField, useTheme } from "@mui/material";
+import { Button, TextField, useTheme, Container } from "@mui/material";
 import Entries from "./Entries";
 import "../App.css";
 import { getCssPropertyValue } from "../utils/style";
-import Login from "./Login";
-import { Container } from "@mui/material";
 import Notification from "./Notification";
+import LandingPage from "./LandingPage";
 
 const inputStyle = {
   backgroundColor: "white",
@@ -53,7 +52,7 @@ const MainInput = (props) => {
           <TextField
             id="problem"
             multiline
-            placeholder="Prepare questions for the interation to maximize impact"
+            placeholder="What is the problem this company is facing?"
             className="full-input"
             onChange={props.handleProblem}
             value={props.problem}
@@ -69,7 +68,7 @@ const MainInput = (props) => {
           <TextField
             id="solution"
             multiline
-            placeholder="Prepare questions for the interation to maximize impact"
+            placeholder="What is their ideal solution that you can offer?"
             className="full-input"
             onChange={props.handleSolution}
             value={props.solution}
@@ -85,7 +84,7 @@ const MainInput = (props) => {
           <TextField
             id="value"
             multiline
-            placeholder="Prepare questions for the interation to maximize impact"
+            placeholder="What value will they get out of your solution?"
             className="full-input"
             onChange={props.handleValue}
             value={props.value}
@@ -116,7 +115,7 @@ const SubInput = (props) => {
         <TextField
           id="power"
           type="text"
-          placeholder="string 2"
+          placeholder="Who is the decision maker? (hint: it might not be your contact)"
           className="half-input"
           onChange={props.handlePower}
           value={props.power}
@@ -130,7 +129,7 @@ const SubInput = (props) => {
         <TextField
           id="plan"
           type="text"
-          placeholder="string 1"
+          placeholder="What is your mutal plan moving forward?"
           className="half-input"
           onChange={props.handlePlan}
           value={props.plan}
@@ -197,7 +196,7 @@ const BasicInfo = (props) => {
         <TextField
           size="small"
           type="text"
-          placeholder="Anxiety Question"
+          placeholder="What question will create urgency for your contact?"
           className="long-input"
           onChange={props.handleAnxietyQ}
           value={props.anxietyQ}
@@ -221,24 +220,20 @@ const Form = (props) => {
 
   const loginForm = () => (
     <div>
-      <h1 className="login-msg">
-        Welcome to the Value Selling Tracker! {<br />} Please sign in to get
-        started!
-      </h1>
-      <Container maxWidth="sm">
-        <Login
-          username={props.username}
-          setUsername={props.setUsername}
-          password={props.password}
-          setPassword={props.setPassword}
-          handleLogin={props.handleLogin}
-          handleUsername={props.handleUsername}
-          handlePassword={props.handlePassword}
-          notification={props.notification}
-          notificationOpen={props.notificationOpen}
-          notificationType={props.notificationType}
-        />
-      </Container>
+      <LandingPage
+        username={props.username}
+        setUsername={props.setUsername}
+        password={props.password}
+        setPassword={props.setPassword}
+        handleLogin={props.handleLogin}
+        handleUsername={props.handleUsername}
+        handlePassword={props.handlePassword}
+        notification={props.notification}
+        notificationOpen={props.notificationOpen}
+        notificationType={props.notificationType}
+      />
+  
+
     </div>
   );
 
@@ -308,8 +303,10 @@ const Form = (props) => {
         handleClose={props.handleClose}
       />
       {props.user === null && loginForm()}
-      {props.user !== null && oppForm()}
-      {props.user !== null && entryList()}
+      <Container>
+        {props.user !== null && oppForm()}
+        {props.user !== null && entryList()}
+      </Container>
     </div>
   );
 };

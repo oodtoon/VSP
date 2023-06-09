@@ -1,4 +1,4 @@
-import { Button, TextField, useTheme } from "@mui/material";
+import { Button, TextField, Box } from "@mui/material";
 import { getCssPropertyValue } from "../utils/style";
 import "../App.css";
 import { Link } from "react-router-dom";
@@ -6,10 +6,19 @@ import Notification from "./Notification";
 
 const loginStyle = {
   textAlign: "left",
-  backgroundColor: getCssPropertyValue("--secondary-200"),
+  backgroundColor: getCssPropertyValue("--primary-100"),
   borderRadius: "4px",
   boxShadow: "0 0 0 0",
 };
+
+const forgotPass = {
+  fontSize: ".5em",
+};
+
+const demoUser = {
+  fontSize: ".5em",
+  fontStyle: "italic"
+}
 
 const Login = ({
   username,
@@ -20,9 +29,7 @@ const Login = ({
   notification,
   notificationOpen,
   notificationType,
-  
 }) => {
-  const theme = useTheme();
 
 
   return (
@@ -31,14 +38,6 @@ const Login = ({
         className="login-field"
         style={{
           ...loginStyle,
-          backgroundColor:
-            theme.palette.mode === "dark"
-              ? getCssPropertyValue("--primary-100")
-              : getCssPropertyValue("--secondary-200"),
-          boxShadow:
-            theme.palette.mode === "dark"
-              ? "0px 0px 60px 10px var(--primary-300)"
-              : "0 0 0 0",
         }}
       >
         <form action="submit" onSubmit={handleLogin}>
@@ -73,11 +72,16 @@ const Login = ({
           component={Link}
           to="createaccount"
           variant="contained"
-          sx={{ mt: "10px", mr: "20px" }}
+          sx={{ mt: "10px", mr: "20px", mb: "10px" }}
         >
           Create Account
         </Button>
-        <Link to="/forgotpassword">Forgot Password?</Link>
+
+        <Link to="/forgotpassword" style={forgotPass}>
+          Forgot Password?
+        </Link>
+        <Box style={demoUser}>Demo account: <br />
+        <span className="demo-login">L: DemoUser</span> P: EasyPassword</Box>
       </fieldset>
       <Notification
         notification={notification}
