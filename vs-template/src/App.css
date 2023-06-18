@@ -7,40 +7,12 @@
   --secondary-300: rgb(25, 47, 132);
 }
 
+/* FORM STYLES */
+
 fieldset {
   border: 0;
   padding: 0.5em;
   margin: 10px 0px;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--primary-textfield);
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .long-input {
@@ -76,15 +48,29 @@ textarea::placeholder {
   text-align: center;
 }
 
-.entry {
-  text-align: left;
-  padding-left: 40px;
+.main-label {
+  font-size: x-large;
+  font-weight: 650;
+  color: var(--primary-300);
+}
 
+.sub-label {
+  font-size: x-large;
+  font-weight: 650;
+  color: var(--primary-300);
+}
+
+.basic-label {
+  font-size: x-large;
+  font-weight: 650;
+  color: var(--primary-300);
 }
 
 .submit-btn {
   font-weight: 800px;
 }
+
+/* OPPORTUNITY BUTTONS */
 
 .fade {
   background-color: transparent;
@@ -97,6 +83,8 @@ textarea::placeholder {
   background-color: rgb(104, 189, 104);
   border-radius: 8px;
 }
+
+/* NAV BAR */
 
 .nav {
   text-align: center;
@@ -116,6 +104,17 @@ nav a.active {
   background-color: var(--secondary-200);
 }
 
+.nav-span {
+  margin-left: 10px;
+  font-weight: 800;
+}
+
+/* OPP ENTRIES */
+.entry {
+  text-align: left;
+  padding-left: 40px;
+}
+
 .entry-details {
   padding-bottom: 30px;
 }
@@ -132,51 +131,22 @@ nav a.active {
   display: none;
 }
 
-header.header {
-  background-color: var(--primary-200);
-}
-
-.body {
-  font-weight: 700;
-}
-
-.main-label {
-  font-size: x-large;
-  font-weight: 650;
-  color: var(--primary-300);
-}
-
-.sub-label {
-  font-size: x-large;
-  font-weight: 650;
-  color: var(--primary-300);
-}
-
-.basic-label {
-  font-size: x-large;
-  font-weight: 650;
-  color: var(--primary-300);
-}
-
 .entry-line {
-display: grid;
-grid-template-columns: 1fr 10fr;
+  display: grid;
+  grid-template-columns: 1fr 10fr;
 }
 
 .display-label {
   align-self: start;
 }
 
-.nav-span {
-  margin-left: 10px;
-}
+/* CREATE ACCOUNT PAGE */
 
-.login-msg {
+.create-header {
   display: grid;
   margin: auto;
   justify-content: center;
-  align-items: center;
-  margin-bottom: 50px;
+  margin-bottom: 25px;
 }
 
 .create-form {
@@ -208,20 +178,21 @@ grid-template-columns: 1fr 10fr;
   grid-area: create-btn;
 }
 
-.create-header {
-  display: grid;
-  margin: auto;
-  justify-content: center;
-  margin-bottom: 25px;
+/* Landing Page */
+
+header.header {
+  background-color: var(--primary-200);
 }
 
+.body {
+  font-weight: 700;
+}
+
+/* brands testimonial */
 
 .testimonial-banner {
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  left: 0;
-  right: 0;
+  display: grid;
+  margin: auto;
   width: 100%;
   height: 7em;
   background-color: var(--secondary-100);
@@ -229,20 +200,40 @@ grid-template-columns: 1fr 10fr;
   color: white;
 }
 
-.numbers-banner {
-  display: flex;
-  justify-content: center;
-  position: absolute;
-  margin-top: 7em;
-  left: 0;
-  right: 0;
-  height: 10em;
-  width: 100%;
-  height: 15em;
-  background-color: var(--primary-100);
-  font-size: 30px;
-  color: var(--primary-300);
-  margin-bottom: 3em;
+.testimonial-container {
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  grid-template-areas: "head" "brands";
+}
+
+.testimonial-title {
+  grid-area: head;
+  margin: auto;
+}
+
+/* Carousel */
+
+.carousel {
+  width: 30em;
+  grid-area: brands;
+}
+
+.carousel-brands {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
+  transition: transform 2s ease;
+  padding-top: 1em;
+  padding-bottom: 2em;
+}
+
+.carousel-box {
+  transition: transform 2s ease;
+}
+
+.brand {
+  transition: transform 2s ease;
+  align-self: center;
 }
 
 .numbers {
@@ -254,8 +245,6 @@ grid-template-columns: 1fr 10fr;
   grid-template-columns: 2;
   grid-template-areas: "img text";
   align-content: center;
- 
-
 }
 
 .text-grid-container {
@@ -279,22 +268,360 @@ grid-template-columns: 1fr 10fr;
   margin-bottom: 10em;
 }
 
-.login-action {
-  padding-left: .5em;
-}
-
-.demo-login {
-  margin-right: 2em;
-}
-
 .img-link:link {
   color: white;
 }
 
 .img-link:visited {
-  color: var(--secondary-100)
+  color: var(--secondary-100);
 }
 
 img {
   background-color: transparent;
+}
+
+/*Landing Page layouts for Hero Login */
+.landing-container {
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-areas: "header" "msg" "login";
+  font-size: 20px;
+  font-weight: 600;
+  box-shadow: 1rem 1rem var(--primary-300);
+}
+
+@media (min-width: 800px) {
+  .landing-container {
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-areas: "header login" "msg login";
+    font-size: 28px;
+    box-shadow: 1rem 1rem var(--primary-300);
+  }
+}
+
+.landing-header {
+  grid-area: header;
+  width: 100%;
+}
+
+.landing-msg {
+  grid-area: msg;
+  width: 100%;
+}
+
+.landing-login {
+  grid-area: login;
+  place-self: center;
+  border-radius: 8px;
+  box-shadow: 0 0 0.5em black;
+  width: 75%;
+}
+
+@media (min-width: 800px) {
+  .landing-login {
+    grid-area: login;
+    place-self: center;
+    border-radius: 8px;
+    box-shadow: 0 0 0.5em black;
+    width: 100%;
+  }
+}
+
+.login-action {
+  padding-left: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.demo-login {
+  margin-right: 2em;
+  font-size: 1rem;
+}
+
+/* Numbers banner */
+
+.numbers-background {
+  background-color: #dfe7fe;
+}
+
+.numbers-container {
+  display: grid;
+  margin: auto;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "box1 box2" "box3 box4" "nh nh" "info info";
+  gap: 1em;
+  padding: 1em 1em;
+  width: 100%;
+  font-size: 28px;
+  color: var(--primary-300);
+  margin-bottom: 3em;
+ 
+}
+
+@media (min-width: 900px) {
+  .numbers-container {
+    display: grid;
+    margin: auto;
+    grid-template-columns: 1fr 1fr 3fr;
+    grid-template-areas: "box1 box2 nh" "box3 box4 info";
+    gap: 1em;
+    padding: 1em 5em;
+    width: 100%;
+    font-size: 28px;
+    color: var(--primary-300);
+    margin-bottom: 3em;
+    max-width: 1400px;
+  }
+}
+
+.number-header {
+  grid-area: nh;
+}
+
+.info {
+  grid-area: info;
+  font-size: 0.9em;
+}
+
+.number1 {
+  grid-area: box1;
+  justify-self: center;
+}
+
+.number2 {
+  grid-area: box2;
+  justify-self: center;
+}
+
+.number3 {
+  grid-area: box3;
+  justify-self: center;
+}
+
+.number4 {
+  grid-area: box4;
+  justify-self: center;
+}
+
+.number-title {
+  font-size: 0.8em;
+  color: var(--secondary-100);
+}
+
+.number-num {
+  font-weight: bolder;
+
+  font-size: 2em;
+  color: #ff7062;
+}
+
+.number-msg {
+  font-size: 0.8em;
+  font-weight: bold;
+  color: var(--primary-300);
+}
+
+.highlight {
+  color: #ff7062;
+}
+
+.words-title {
+  font-size: 1.5em;
+  font-weight: bolder;
+}
+
+.words-main-msg {
+  font-weight: bold;
+}
+
+.win {
+  background-color: var(--primary-300);
+  color: white;
+  padding: .2em;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* Imgs container landing page*/
+.img-container {
+  display: grid;
+  margin: auto;
+  grid-template-columns: 1fr;
+  grid-template-areas: "img1" "text1" "img2" "text2" "img3" "text3" "img4" "text4";
+  margin-bottom: 5em;
+}
+
+@media (min-width: 900px) {
+  .img-container {
+    display: grid;
+    margin: auto;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "text1 img1" "img2 text2" "text3 img3" "img4 text4";
+    margin-bottom: 5em;
+  }
+}
+
+.img1 {
+  grid-area: img1;
+}
+
+.img2 {
+  grid-area: img2;
+}
+
+.img3 {
+  grid-area: img3;
+}
+
+.img4 {
+  grid-area: img4;
+}
+
+.text1 {
+  grid-area: text1;
+}
+
+.text2 {
+  grid-area: text2;
+}
+
+.text3 {
+  grid-area: text3;
+}
+
+.text4 {
+  grid-area: text4;
+}
+
+/* Review */
+
+.review-container {
+  display: grid;
+  margin: auto;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: "review-title" "pic";
+  background-color: var(--secondary-100);
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+}
+
+@media (min-width: 700px) {
+  .review-container {
+    display: grid;
+    margin: auto;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "pic review-title";
+    background-color: var(--secondary-100);
+    font-size: 30px;
+    color: white;
+    font-weight: bold;
+  }
+}
+
+.review-title {
+  background-color: var(--primary-100);
+  padding: 0.3em;
+  border-radius: 4px;
+  box-shadow: 1rem 1rem var(--primary-200);
+}
+
+.review-words {
+  grid-area: review-title;
+  padding: 1em;
+}
+
+.review-img-container {
+  padding: 1em 2em 2em 1em;
+}
+
+.review-img {
+  position: relative;
+  grid-area: pic;
+  border-radius: 50%;
+  height: 15em;
+  width: 15em;
+  box-shadow: 1rem 1rem var(--primary-300);
+  z-index: 1;
+}
+
+.quote {
+  position: absolute;
+  font-weight: 900;
+  width: 3em;
+  height: 3em;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  transform: translateY(25%);
+  background: var(--primary-300);
+  color: white;
+  z-index: 2;
+}
+
+.name-title {
+  font-size: 1rem;
+}
+
+/* Demo */
+
+.demo-offer {
+  background-color: var(--primary-300);
+  color: white;
+  padding: 0.2em;
+  border-radius: 4px;
+}
+
+.demo-container {
+  box-shadow: 1rem 1rem var(--primary-300);
+  display: grid;
+  justify-items: center;
+}
+
+/* Footer */
+
+.footer-grid {
+  display: grid;
+  margin: auto;
+  padding: 1em;
+  gap: 1em;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: "branding contact" "attribution socials";
+  overflow-y: hidden;
+}
+
+.link-attribution {
+  grid-area: attribution;
+}
+
+.footer-contact {
+  grid-area: contact;
+  align-self: end;
+}
+.socials {
+  grid-area: socials;
+}
+
+.social-link {
+  color: white;
+  font-size: 2em;
+  margin: 0.5em;
+  cursor: pointer;
+}
+
+.contact-link {
+  color: white;
+  font-size: 1.5em;
+  margin: 0.5em;
+  cursor: pointer;
+  justify-self: start;
+  align-self: end;
+  text-decoration: none;
+}
+
+.branding {
+  grid-area: branding;
+  color: white;
+  font-size: 3rem;
 }

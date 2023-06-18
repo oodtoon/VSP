@@ -4,7 +4,7 @@ import '../App.css'
 
 const Nav = (props) => {
   const vsName = () => (
-    <div style={{ marginLeft: "20px" }}>Value Selling Form</div>
+    <div style={{ marginLeft: "20px", fontWeight: 800, }}>Value Sell Form</div>
   );
 
   const loggedUser = () => (
@@ -28,7 +28,7 @@ const Nav = (props) => {
   const noLinks = () => (
     <nav>
       <NavLink to="/">Home</NavLink>
-      <span className="nav-span">Log In To Access Links</span>
+      <span className="nav-span">Log In To Access Form</span>
     </nav>
   );
 

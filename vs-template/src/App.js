@@ -11,11 +11,13 @@ import Nav from "./components/Nav";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import { Container } from "@mui/material";
-
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { darkPallete, lightPallete } from "./palletes";
+
+import { config } from '@fortawesome/fontawesome-svg-core'
+import "@fortawesome/fontawesome-svg-core/styles.css";
+config.autoAddCss = false
 
 function App() {
   let darkMode = JSON.parse(localStorage.getItem("theme"));

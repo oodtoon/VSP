@@ -12,11 +12,11 @@ const loginStyle = {
 };
 
 const forgotPass = {
-  fontSize: ".5em",
+  fontSize: "1rem",
 };
 
 const demoUser = {
-  fontSize: ".5em",
+  fontSize: "1rem",
   fontStyle: "italic"
 }
 
@@ -34,9 +34,10 @@ const Login = ({
 
   return (
     <>
-      <fieldset
+      <Box
         className="login-field"
-        style={{
+        
+        sx={{
           ...loginStyle,
         }}
       >
@@ -81,8 +82,8 @@ const Login = ({
           Forgot Password?
         </Link>
         <Box style={demoUser}>Demo account: <br />
-        <span className="demo-login">L: DemoUser</span> P: EasyPassword</Box>
-      </fieldset>
+        <span className="demo-login">Login: DemoUser</span> Password: EasyPassword</Box>
+      </Box>
       <Notification
         notification={notification}
         severity={notificationType}
