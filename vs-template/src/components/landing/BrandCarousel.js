@@ -4,25 +4,45 @@ import "../../App.css";
 
 const BrandArray = ({ brands }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isSliding, setIsSliding] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % brands.length);
+      setIsSliding(true);
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [brands.length]);
+  }, []);
 
-  const visibleBrands = brands.concat(brands.slice(0, 5)).slice(currentIndex, currentIndex + 5);
+  useEffect(() => {
+    if (isSliding) {
+      const timeout = setTimeout(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % brands.length);
+        setIsSliding(false);
+      }, 1000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [isSliding, currentIndex, brands.length]);
+
+  const getVisibleBrands = () => {
+    const endIndex = (currentIndex + 7) % brands.length;
+    if (endIndex >= currentIndex) {
+      return brands.slice(currentIndex, endIndex);
+    } else {
+      return brands.slice(currentIndex).concat(brands.slice(0, endIndex));
+    }
+  };
+
+  const visibleBrands = getVisibleBrands();
 
   return (
     <div className="carousel">
-      <div className="carousel-brands">
+      <div className={`carousel-brands${isSliding ? " sliding" : ""}`}>
         {visibleBrands.map((brand, index) => {
-
           return (
-            <div className="carousel-box">
-              <Brand key={index} brand={brand}/>
+            <div key={index} className="carousel-box">
+              <Brand brand={brand} />
             </div>
           );
         })}
@@ -32,18 +52,3 @@ const BrandArray = ({ brands }) => {
 };
 
 export default BrandArray;
-
-/* <div className="carousel">
-      <div className="carousel-brands">
-        {brands.map((brand, index) => {
-          const slideIndex =
-            (index - currentIndex + brands.length) % brands.length;
-          const slideStyle = {
-            transform: `translateX(-${slideIndex * 100}%)`,
-          };
-          return <div className="carousel-box">
-              <Brand key={index} style={slideStyle} brand={brand} />
-          </div>;
-        })}
-      </div>
-    </div>*/

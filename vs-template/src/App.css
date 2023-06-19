@@ -209,6 +209,8 @@ header.header {
 .testimonial-title {
   grid-area: head;
   margin: auto;
+  color: var(--primary-300);
+  font-weight: bold;
 }
 
 /* Carousel */
@@ -216,25 +218,65 @@ header.header {
 .carousel {
   width: 30em;
   grid-area: brands;
+  overflow: hidden;
 }
 
 .carousel-brands {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   justify-items: center;
-  transition: transform 2s ease;
+  transition: 1s;
   padding-top: 1em;
   padding-bottom: 2em;
+  overflow: hidden;
+}
+
+.carousel-brands.sliding {
+  animation: slide 1s forwards;
 }
 
 .carousel-box {
-  transition: transform 2s ease;
+  opacity: 1;
 }
 
 .brand {
   transition: transform 2s ease;
   align-self: center;
+  font-size: 2em;
 }
+
+.next-slide {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 5s, opacity 5s linear;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-14.28%);
+  }
+}
+
+.curtain-start {
+  background-color: var(--secondary-100);
+  grid-area: brands;
+  height: 100%;
+  width: 4em;
+  z-index: 2;
+}
+
+.curtain-end {
+  grid-area: brands;
+  height: 100%;
+  width: 4em;
+  background-color: var(--secondary-100);
+  justify-self: end;
+  z-index: 2;
+}
+/* numbers */
 
 .numbers {
   padding-top: 1em;
@@ -354,7 +396,6 @@ img {
   font-size: 28px;
   color: var(--primary-300);
   margin-bottom: 3em;
- 
 }
 
 @media (min-width: 900px) {
@@ -436,7 +477,7 @@ img {
 .win {
   background-color: var(--primary-300);
   color: white;
-  padding: .2em;
+  padding: 0.2em;
   border-radius: 4px;
   font-weight: bold;
 }
@@ -579,6 +620,10 @@ img {
 }
 
 /* Footer */
+
+.footer-container {
+box-shadow: 1rem 1rem var(--primary-300);
+}
 
 .footer-grid {
   display: grid;

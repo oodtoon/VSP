@@ -1,7 +1,6 @@
 import "../App.css";
 
-import { useRef, useEffect, useState } from "react";
-
+import { useRef, useEffect, useState  } from "react";
 import MainLogin from "./landing/MainLogin";
 import Brands from "./landing/Brands";
 import Numbers from "./landing/Numbers";
@@ -12,6 +11,7 @@ import Footer from "./landing/Footer";
 
 
 const LandingPage = (props) => {
+  
   const [isScroll, setIsScroll] = useState(false);
 
   const scrollRef = useRef(null);
@@ -31,25 +31,25 @@ const LandingPage = (props) => {
 
   return (
     <div>
-      <MainLogin
-        username={props.username}
-        setUsername={props.setUsername}
-        password={props.password}
-        setPassword={props.setPassword}
-        handleLogin={props.handleLogin}
-        handleUsername={props.handleUsername}
-        handlePassword={props.handlePassword}
-        notification={props.notification}
-        notificationOpen={props.notificationOpen}
-        notificationType={props.notificationType}
-        scrollRef={scrollRef}
-      />
-      <Brands />
-      <Numbers />
-      <ImgSection />
-      <Review />
-      <Demo handleScroll={handleScroll} />
-      <Footer />
+        <MainLogin
+          username={props.username}
+          setUsername={props.setUsername}
+          password={props.password}
+          setPassword={props.setPassword}
+          handleLogin={props.handleLogin}
+          handleUsername={props.handleUsername}
+          handlePassword={props.handlePassword}
+          notification={props.notification}
+          notificationOpen={props.notificationOpen}
+          notificationType={props.notificationType}
+          scrollRef={scrollRef}
+        />
+        <Brands />
+        <Numbers />
+        <ImgSection />
+        <Review />
+        <Demo handleScroll={handleScroll} />
+        <Footer />
     </div>
   );
 };

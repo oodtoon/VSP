@@ -1,7 +1,7 @@
 import { Box, useTheme, Container } from "@mui/material";
 import { getCssPropertyValue } from "../../utils/style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faYoutube, faApple, faTiktok, faWix, faWindows, faAmazon, faAirbnb, faShopify, faLyft, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 import "../../App.css";
 
@@ -13,6 +13,7 @@ const Footer = () => {
   return (
     <>
       <Box
+      className="footer-container"
         sx={{
           mt: "7em",
           overscrollBehavior: "contain",
@@ -57,7 +58,7 @@ const Footer = () => {
                   className="img-link"
                   href="https://www.freepik.com/free-photo/portrait-young-man-with-curly-hair-wearing-shirt_11015700.htm#query=man%20smiling&position=18&from_view=search&track=ais"
                 >
-                  Quote image
+                  Review image
                 </a>{" "}
                 by wayhomestudio on Freepik
               </Box>
@@ -77,6 +78,9 @@ const Footer = () => {
                 href="https://www.youtube.com/@hobbies2seriously"
               >
                 <FontAwesomeIcon icon={faYoutube} />
+              </a>
+              <a className="social-link" href="https://www.linkedin.com/in/brody-blair-46ab72164">
+                <FontAwesomeIcon icon={faLinkedin} />
               </a>
             </Box>
           </Box>
