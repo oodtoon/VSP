@@ -1,7 +1,7 @@
 import { Box, useTheme, Container } from "@mui/material";
 import { getCssPropertyValue } from "../../utils/style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub, faYoutube, faApple, faTiktok, faWix, faWindows, faAmazon, faAirbnb, faShopify, faLyft, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faYoutube, faLinkedin } from "@fortawesome/free-brands-svg-icons";
 
 import "../../App.css";
 

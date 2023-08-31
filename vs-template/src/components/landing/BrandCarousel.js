@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useWindowSize } from "@uidotdev/usehooks";
 import Brand from "../Brand";
 import "../../App.css";
 
@@ -6,31 +7,43 @@ const BrandArray = ({ brands }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isSliding, setIsSliding] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsSliding(true);
-    }, 5000);
+  const size = useWindowSize();
 
-    return () => clearInterval(interval);
-  }, []);
+  console.log(size);
 
   useEffect(() => {
-    if (isSliding) {
-      const timeout = setTimeout(() => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % brands.length);
-        setIsSliding(false);
-      }, 1000);
+    if (size.width >= 580) {
+      const interval = setInterval(() => {
+        setIsSliding(true);
+      }, 5000);
 
-      return () => clearTimeout(timeout);
+      return () => clearInterval(interval);
     }
-  }, [isSliding, currentIndex, brands.length]);
+  }, [size]);
+
+  useEffect(() => {
+    if (size.width >= 580) {
+      if (isSliding) {
+        const timeout = setTimeout(() => {
+          setCurrentIndex((prevIndex) => (prevIndex + 1) % brands.length);
+          setIsSliding(false);
+        }, 1000);
+
+        return () => clearTimeout(timeout);
+      }
+    }
+  }, [isSliding, currentIndex, brands.length, size]);
 
   const getVisibleBrands = () => {
-    const endIndex = (currentIndex + 7) % brands.length;
-    if (endIndex >= currentIndex) {
-      return brands.slice(currentIndex, endIndex);
+    if (size.width >= 580) {
+      const endIndex = (currentIndex + 7) % brands.length;
+      if (endIndex >= currentIndex) {
+        return brands.slice(currentIndex, endIndex);
+      } else {
+        return brands.slice(currentIndex).concat(brands.slice(0, endIndex));
+      }
     } else {
-      return brands.slice(currentIndex).concat(brands.slice(0, endIndex));
+      return brands
     }
   };
 
