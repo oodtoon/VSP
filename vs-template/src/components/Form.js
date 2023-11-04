@@ -218,6 +218,13 @@ const Form = (props) => {
         : getCssPropertyValue("--primary-300"),
   };
 
+  const userOpps = props.user
+    ? props.opps.filter(
+        (opp) =>
+          opp.user.username === props.user.username && opp.status === "Open"
+      )
+    : [];
+
   const loginForm = () => (
     <div>
       <LandingPage
@@ -232,8 +239,6 @@ const Form = (props) => {
         notificationOpen={props.notificationOpen}
         notificationType={props.notificationType}
       />
-  
-
     </div>
   );
 
@@ -270,19 +275,11 @@ const Form = (props) => {
     </form>
   );
 
-  const userOpps =
-    props.user === null
-      ? ["please log in"]
-      : props.opps.filter(
-          (opp) =>
-            opp.user.username === props.user.username && opp.status === "Open"
-        );
-
   const entryList = () => {
     return (
       <>
-        {userOpps.length === 0 && <h1>no current oppotunities</h1>}
-        {userOpps !== null &&
+        {userOpps.length === 0 && <h1>no current open oppotunities</h1>}
+        {userOpps > 0 &&
           userOpps.map((opp) => (
             <Entries
               key={opp.id}

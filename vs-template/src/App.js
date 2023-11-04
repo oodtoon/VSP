@@ -15,9 +15,10 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { darkPallete, lightPallete } from "./palletes";
 
-import { config } from '@fortawesome/fontawesome-svg-core'
+import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
-config.autoAddCss = false
+import PasswordReset from "./components/routes/PasswordReset";
+config.autoAddCss = false;
 
 function App() {
   let darkMode = JSON.parse(localStorage.getItem("theme"));
@@ -174,7 +175,6 @@ function App() {
           user: { id: user.id, username: user.username },
         })
       );
-      console.log(returnedOpp);
     });
     setNotificationType("success");
     setNotification("New opportunity created!");
@@ -214,21 +214,23 @@ function App() {
     event.preventDefault();
 
     try {
-      const user = await loginService.login({
+      const loginUser = await loginService.login({
         username,
         password,
       });
 
-      window.localStorage.setItem("loggedVSPappUser", JSON.stringify(user));
+      window.localStorage.setItem(
+        "loggedVSPappUser",
+        JSON.stringify(loginUser)
+      );
 
-      oppService.setToken(user.token);
-      setUser(user);
+      setUser(loginUser);
+
       setUsername("");
       setPassword("");
       setNotificationType("success");
       setNotification("You are now logged in!");
       setNotificationOpen(true);
-      console.log("logged in with", username);
     } catch (exception) {
       setPassword("");
       setNotificationType("error");
@@ -258,105 +260,117 @@ function App() {
             user={user}
             handleLogout={handleLogout}
           />
-         
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <Form
-                    addOpp={addOpp}
-                    handleCompany={handleCompany}
-                    company={company}
-                    handleContact={handleContact}
-                    contact={contact}
-                    handleBusinessIssue={handleBusinessIssue}
-                    businessIssue={businessIssue}
-                    handleAnxietyQ={handleAnxietyQ}
-                    anxietyQ={anxietyQ}
-                    handleProblem={handleProblem}
-                    problem={problem}
-                    handleSolution={handleSolution}
-                    solution={solution}
-                    handleValue={handleValue}
-                    value={value}
-                    handlePlan={handlePlan}
-                    plan={plan}
-                    handlePower={handlePower}
-                    power={power}
-                    opps={opps}
-                    setOpps={setOpps}
-                    isDarkMode={isDarkMode}
-                    handleDelete={handleDelete}
-                    username={username}
-                    setUsername={setUsername}
-                    handleUsername={handleUsername}
-                    password={password}
-                    setPassword={setPassword}
-                    handlePassword={handlePassword}
-                    handleLogin={handleLogin}
-                    user={user}
-                    notification={notification}
-                    notificationOpen={notificationOpen}
-                    notificationType={notificationType}
-                    setNotificationOpen={setNotificationOpen}
-                    setNotificationType={setNotificationType}
-                    handleClose={handleClose}
-                  />
-                }
-              />
-              <Route
-                path="/opportunities"
-                element={
-                  <Opportunities
-                    opps={opps}
-                    setOpps={setOpps}
-                    handleDelete={handleDelete}
-                    user={user}
-                    notification={notification}
-                    notificationOpen={notificationOpen}
-                    notificationType={notificationType}
-                    handleClose={handleClose}
-                    setNotification={setNotification}
-                    setNotificationOpen={setNotificationOpen}
-                    setNotificationType={setNotificationType}
-                  />
-                }
-              />
-              <Route
-                path="/tasks"
-                element={
-                  opps.length !== 0 && <TimeLine opps={opps} user={user} />
-                }
-              />
-              <Route
-                path="gameplan"
-                element={
-                  opps.length !== 0 && (
-                    <GamePlan user={user} opps={opps} setOpps={setOpps} />
-                  )
-                }
-              />
-              <Route
-                path="createaccount"
-                element={
-                  <CreateAccount
-                    user={user}
-                    notification={notification}
-                    notificationOpen={notificationOpen}
-                    notificationType={notificationType}
-                    setNotification={setNotification}
-                    setNotificationOpen={setNotificationOpen}
-                    setNotificationType={setNotificationType}
-                    handleClose={handleClose}
-                  />
-                }
-              />
-              <Route
-                path="forgotpassword"
-                element={<ForgotPassword user={user} />}
-              />
-            </Routes>
-         
+
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Form
+                  addOpp={addOpp}
+                  handleCompany={handleCompany}
+                  company={company}
+                  handleContact={handleContact}
+                  contact={contact}
+                  handleBusinessIssue={handleBusinessIssue}
+                  businessIssue={businessIssue}
+                  handleAnxietyQ={handleAnxietyQ}
+                  anxietyQ={anxietyQ}
+                  handleProblem={handleProblem}
+                  problem={problem}
+                  handleSolution={handleSolution}
+                  solution={solution}
+                  handleValue={handleValue}
+                  value={value}
+                  handlePlan={handlePlan}
+                  plan={plan}
+                  handlePower={handlePower}
+                  power={power}
+                  opps={opps}
+                  setOpps={setOpps}
+                  isDarkMode={isDarkMode}
+                  handleDelete={handleDelete}
+                  username={username}
+                  setUsername={setUsername}
+                  handleUsername={handleUsername}
+                  password={password}
+                  setPassword={setPassword}
+                  handlePassword={handlePassword}
+                  handleLogin={handleLogin}
+                  user={user}
+                  notification={notification}
+                  notificationOpen={notificationOpen}
+                  notificationType={notificationType}
+                  setNotificationOpen={setNotificationOpen}
+                  setNotificationType={setNotificationType}
+                  handleClose={handleClose}
+                />
+              }
+            />
+            <Route
+              path="/opportunities"
+              element={
+                <Opportunities
+                  opps={opps}
+                  setOpps={setOpps}
+                  handleDelete={handleDelete}
+                  user={user}
+                  notification={notification}
+                  notificationOpen={notificationOpen}
+                  notificationType={notificationType}
+                  handleClose={handleClose}
+                  setNotification={setNotification}
+                  setNotificationOpen={setNotificationOpen}
+                  setNotificationType={setNotificationType}
+                />
+              }
+            />
+            <Route
+              path="/tasks"
+              element={
+                opps.length !== 0 && <TimeLine opps={opps} user={user} />
+              }
+            />
+            <Route
+              path="gameplan"
+              element={
+                opps.length !== 0 && (
+                  <GamePlan user={user} opps={opps} setOpps={setOpps} />
+                )
+              }
+            />
+            <Route
+              path="createaccount"
+              element={
+                <CreateAccount
+                  user={user}
+                  notification={notification}
+                  notificationOpen={notificationOpen}
+                  notificationType={notificationType}
+                  setNotification={setNotification}
+                  setNotificationOpen={setNotificationOpen}
+                  setNotificationType={setNotificationType}
+                  handleClose={handleClose}
+                />
+              }
+            />
+            <Route
+              path="forgotpassword"
+              element={<ForgotPassword user={user} />}
+            />
+            <Route
+              path="password-reset/:id/:token"
+              element={
+                <PasswordReset
+                  notification={notification}
+                  notificationOpen={notificationOpen}
+                  notificationType={notificationType}
+                  setNotification={setNotification}
+                  setNotificationOpen={setNotificationOpen}
+                  setNotificationType={setNotificationType}
+                />
+              }
+            />
+          </Routes>
         </Router>
       </ThemeProvider>
     </div>

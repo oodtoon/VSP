@@ -1,6 +1,8 @@
 import { TextField, Button, useTheme, Box, Container } from "@mui/material";
 import { getCssPropertyValue } from "../../utils/style";
+import resetService from "../../services/passwordReset";
 import "../../App.css";
+import { useState } from "react";
 
 const resetStyle = {
   display: "grid",
@@ -9,7 +11,7 @@ const resetStyle = {
   textAlign: "left",
   backgroundColor: getCssPropertyValue("--secondary-200"),
   borderRadius: "4px",
-  p: "2em"
+  p: "2em",
 };
 
 const demoUser = {
@@ -20,11 +22,27 @@ const demoUser = {
 };
 
 const ForgotPassword = () => {
+  const [email, setEmail] = useState("");
+  const [user, setUser] = useState("");
+
   const theme = useTheme();
 
-  const handlePasswordReset = (event) => {
+  const handleUser = (event) => {
+    setUser(event.target.value);
+  };
+
+  const handleEmail = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordReset = async (event) => {
     event.preventDefault();
-    console.log("password reset");
+
+    const message = { user, email}
+    await resetService.sendUserResetLink(message);
+
+    setEmail("");
+    setUser("");
   };
 
   return (
@@ -47,7 +65,9 @@ const ForgotPassword = () => {
                   type="text"
                   placeholder="Username"
                   className="reset-form"
-                  label="username"
+                  label="Username"
+                  onChange={handleUser}
+                  value={user}
                 />
               </label>
               <label>
@@ -57,9 +77,13 @@ const ForgotPassword = () => {
                   placeholder="E-mail"
                   className="reset-form"
                   label="E-mail"
+                  onChange={handleEmail}
+                  value={email}
                 />
               </label>
-              <Button variant="contained">Reset Password</Button>
+              <Button variant="contained" type="submit">
+                Send Password Reset Email
+              </Button>
             </form>
           </Box>
           <Box sx={{ ...demoUser, gridArea: "demoUser" }}>

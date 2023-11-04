@@ -18,7 +18,7 @@ const CreateAccount = (props) => {
 
   const [newUser, setNewUser] = useState("");
 
-  const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("");
 
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -38,10 +38,10 @@ const CreateAccount = (props) => {
   };
 
   const handleEmail = (event) => {
-    setEmail(event.target.value)
-  }
+    setEmail(event.target.value);
+  };
 
-  const handleCreateAccount = (event) => {
+  const handleCreateAccount = async (event) => {
     event.preventDefault();
 
     if (newPassword === confirmPassword) {
@@ -51,15 +51,24 @@ const CreateAccount = (props) => {
         password: newPassword,
       };
 
-      usersService.createUser(userObj);
-      console.log("created");
+      const response = await usersService.createUser(userObj);
+      console.log(response)
+
+      if (response.name === "ValidationError") {
+        props.setNotificationOpen(true);
+        props.setNotificationType("error");
+        const type = response.message.includes("username") ? "Username" : "Email"
+        props.setNotification(`${type} is already in use.`)
+      } else {
+        props.setNotificationOpen(true);
+        props.setNotification("Account Created! Login to start using the app");
+        props.setNotificationType("success");
+      }
+
       setNewUser("");
       setNewPassword("");
       setConfirmPassword("");
       setIsNewUser(!isNewUser);
-      props.setNotificationOpen(true);
-      props.setNotification("Account Created! Login to start using the app");
-      props.setNotificationType("success");
     } else {
       setNewPassword("");
       setConfirmPassword("");
