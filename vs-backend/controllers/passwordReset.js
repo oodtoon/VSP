@@ -6,8 +6,6 @@ const ResetToken = require("../models/resetToken");
 const sendEmail = require("../utils/emailSender");
 const crypto = require("crypto");
 
-// const Joi = require("joi");
-
 //send password link
 resetRouter.post("/", async (request, response) => {
   try {
@@ -25,7 +23,8 @@ resetRouter.post("/", async (request, response) => {
       }).save();
     }
 
-    const url = `${config.BASE_URL}/password-reset/${user._id}/${token.token}/`;
+    
+    const url = process.env.NODE_ENV === "development" ? `${config.BASE_URL}/password-reset/${user._id}/${token.token}/` : `${config.APP_URL}/password-reset/${user._id}/${token.token}/`
 
     const body = `
     <p>Hello ${user.username},</p>
