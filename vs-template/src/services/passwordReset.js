@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const baseUrl = "http://localhost:3001/api/password-reset";
+const resetUrl = process.env.NODE_ENV === "development" ?' http://localhost:3001/api/password-reset' : `${process.env.SERVER_URL}/api/password-reset`;
 
 const sendUserResetLink = async (userObject) => {
   try {
-    const response = await axios.post(baseUrl, userObject);
+    const response = await axios.post(resetUrl, userObject);
     return response.data.message;
   } catch (error) {
     return error;
