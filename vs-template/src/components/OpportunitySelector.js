@@ -25,8 +25,6 @@ const GamePlanForm = (props) => {
     handleBlur();
   };
 
-  console.log(props.opps);
-
   const handleBlur = () => {
     const oppObj = {
       gamePlan: gamePlan,

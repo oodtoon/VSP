@@ -181,7 +181,6 @@ const TimeLine = (props) => {
           ...returnedTask,
           date: dayjs(returnedTask.date),
         });
-        console.log(returnedTask);
         setTasks(opp.tasks);
       })
       .catch((error) => {

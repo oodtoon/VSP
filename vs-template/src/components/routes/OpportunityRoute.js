@@ -29,7 +29,6 @@ const Opportunities = (props) => {
   };
 
   const handleSearch = (event) => {
-    console.log(event.target.value)
     setSearch(event.target.value)
   }
 

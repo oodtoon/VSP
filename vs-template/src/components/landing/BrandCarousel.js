@@ -9,8 +9,6 @@ const BrandArray = ({ brands }) => {
 
   const size = useWindowSize();
 
-  console.log(size);
-
   useEffect(() => {
     if (size.width >= 580) {
       const interval = setInterval(() => {

@@ -52,7 +52,6 @@ const CreateAccount = (props) => {
       };
 
       const response = await usersService.createUser(userObj);
-      console.log(response)
 
       if (response.name === "ValidationError") {
         props.setNotificationOpen(true);

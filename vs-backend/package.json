@@ -7,10 +7,13 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:ui": "rm -rf build && cd ../vs-template/ && npm run build && cp -r build ../vs-backend",
+    "build": "react-scripts build",
+    "build:server": "rm -rf build && npm run build",
     "deploy": "fly deploy",
-    "deploy:full": "npm run build:ui && npm run deploy",
-    "logs:prod": "fly logs"
+    "deploy:full": "npm run build:server && npm run deploy",
+    "logs:prod": "fly logs",
+    "remove:build": "rm -rf build",
+    "production": "node build/index.js"
   },
   "author": "brody",
   "license": "ISC",
